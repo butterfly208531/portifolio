@@ -1,0 +1,132 @@
+.ep-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.ep-modal {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 2.5rem;
+}
+
+.ep-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.ep-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--text);
+}
+
+.ep-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.ep-close:hover { color: var(--text); }
+
+.ep-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.ep-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.ep-row label {
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.ep-row label span {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.75rem;
+  color: var(--accent-light);
+}
+
+.ep-row input,
+.ep-row textarea {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  padding: 0.6rem 0;
+  color: var(--text);
+  font-size: 0.95rem;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  outline: none;
+  transition: border-color 0.2s;
+  resize: none;
+}
+
+.ep-row input:focus,
+.ep-row textarea:focus {
+  border-bottom-color: var(--accent);
+}
+
+.ep-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.btn-cancel {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 0.6rem 1.5rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'Open Sans', sans-serif;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.btn-cancel:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.btn-save {
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  color: var(--text);
+  padding: 0.6rem 1.5rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'Open Sans', sans-serif;
+  transition: opacity 0.2s;
+}
+
+.btn-save:hover { opacity: 0.85; }
+.btn-save:disabled { opacity: 0.6; cursor: not-allowed; }
