@@ -1,17 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useTheme } from '../context/ThemeContext'
-import { useAuth } from '../context/AuthContext'
-import Login from './Login'
 import './Navbar.css'
 
 const sections = ['about', 'projects', 'experience', 'services', 'contact']
 
 function Navbar() {
   const { theme, toggle } = useTheme()
-  const { auth, logout, isAdmin } = useAuth()
   const [active, setActive] = useState('')
   const [scrolled, setScrolled] = useState(false)
-  const [showLogin, setShowLogin] = useState(false)
 
   useEffect(() => {
     const onScroll = () => {
@@ -56,17 +52,8 @@ function Navbar() {
               </svg>
             )}
           </button>
-          {isAdmin ? (
-            <div className="nav-admin">
-              <span className="admin-badge">Admin</span>
-              <button className="btn-logout" onClick={logout}>Logout</button>
-            </div>
-          ) : (
-            <button className="btn-login" onClick={() => setShowLogin(true)}>Login</button>
-          )}
         </div>
       </div>
-      {showLogin && <Login onClose={() => setShowLogin(false)} />}
     </nav>
   )
 }

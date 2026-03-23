@@ -8,27 +8,32 @@ import Experience from './components/Experience'
 import Services from './components/Services'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import AdminPage from './pages/AdminPage'
 
 function App() {
   return (
     <Router>
-      <Navbar />
-      <Sidebar />
-      <div className="main-content">
-        <Routes>
-          <Route path="/" element={
-            <>
+      <Routes>
+        {/* Admin route — completely separate, no navbar/sidebar */}
+        <Route path="/admin" element={<AdminPage />} />
+
+        {/* Public portfolio */}
+        <Route path="/*" element={
+          <>
+            <Navbar />
+            <Sidebar />
+            <div className="main-content">
               <Hero />
               <About />
               <Projects />
               <Experience />
               <Services />
               <Contact />
-            </>
-          } />
-        </Routes>
-        <Footer />
-      </div>
+              <Footer />
+            </div>
+          </>
+        } />
+      </Routes>
     </Router>
   )
 }
