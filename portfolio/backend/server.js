@@ -35,10 +35,16 @@ mongoose
     console.log('MongoDB connected');
     // Auto-create admin account if it doesn't exist
     const User = require('./models/User');
-    const exists = await User.findOne({ username: 'seble' });
-    if (!exists) {
-      await User.create({ username: 'seble', password: 'Mom$208531', role: 'admin' });
-      console.log('Admin account created');
+    try {
+      const exists = await User.findOne({ username: 'seble' });
+      if (!exists) {
+        await User.create({ username: 'seble', password: 'Mom$208531', role: 'admin' });
+        console.log('Admin account created');
+      } else {
+        console.log('Admin account already exists');
+      }
+    } catch (err) {
+      console.error('Error creating admin:', err.message);
     }
   })
   .catch((err) => console.error('MongoDB connection error:', err));

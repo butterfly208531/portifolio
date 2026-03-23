@@ -4,9 +4,10 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 function signToken(user) {
+  const secret = process.env.JWT_SECRET || 'fallback_secret_change_me';
   return jwt.sign(
     { id: user._id, username: user.username, role: user.role },
-    process.env.JWT_SECRET,
+    secret,
     { expiresIn: '7d' }
   );
 }
@@ -34,7 +35,8 @@ router.post('/login', async (req, res) => {
     if (!match) return res.status(401).json({ error: 'Invalid credentials' });
     res.json({ token: signToken(user), role: user.role, username: user.username });
   } catch (err) {
-    res.status(500).json({ error: 'Login failed' });
+    console.error('Login error:', err.message);
+    res.status(500).json({ error: err.message });
   }
 });
 
