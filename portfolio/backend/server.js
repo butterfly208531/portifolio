@@ -31,5 +31,14 @@ app.listen(PORT, () => {
 
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log('MongoDB connected'))
+  .then(async () => {
+    console.log('MongoDB connected');
+    // Auto-create admin account if it doesn't exist
+    const User = require('./models/User');
+    const exists = await User.findOne({ username: 'seble' });
+    if (!exists) {
+      await User.create({ username: 'seble', password: 'Mom$208531', role: 'admin' });
+      console.log('Admin account created');
+    }
+  })
   .catch((err) => console.error('MongoDB connection error:', err));
