@@ -1,9 +1,12 @@
 import { useState } from 'react'
 import { useProfile } from '../context/ProfileContext'
+import { useAuth } from '../context/AuthContext'
+import api from '../api'
 import './EditProfile.css'
 
 function EditProfile({ onClose }) {
   const { profile, updateProfile } = useProfile()
+  const { auth } = useAuth()
   const [form, setForm] = useState({
     name: profile?.name || '',
     title: profile?.title || '',
@@ -23,10 +26,10 @@ function EditProfile({ onClose }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setSaving(true)
-    await updateProfile({
-      ...form,
-      skills: form.skills.split(',').map((s) => s.trim()).filter(Boolean),
-    })
+    await updateProfile(
+      { ...form, skills: form.skills.split(',').map((s) => s.trim()).filter(Boolean) },
+      auth?.token
+    )
     setSaving(false)
     setSaved(true)
     setTimeout(() => { setSaved(false); onClose() }, 1000)

@@ -103,3 +103,50 @@
 @media (max-width: 768px) {
   .nav-links { display: none; }
 }
+
+.btn-login {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: 'Space Grotesk', sans-serif;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.btn-login:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+.nav-admin {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.admin-badge {
+  font-size: 0.68rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  border: 1px solid var(--accent);
+  padding: 0.2rem 0.6rem;
+}
+
+.btn-logout {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'Space Grotesk', sans-serif;
+  transition: color 0.2s;
+}
+
+.btn-logout:hover { color: #c0614a; }

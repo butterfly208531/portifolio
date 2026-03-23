@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { useProfile } from '../context/ProfileContext'
+import { useAuth } from '../context/AuthContext'
 import EditProfile from './EditProfile'
 import './Hero.css'
 
 function Hero() {
   const { profile } = useProfile()
+  const { isAdmin } = useAuth()
   const [editing, setEditing] = useState(false)
 
   const nameParts = (profile?.name || 'Seble Mengistu').split(' ')
@@ -32,7 +34,9 @@ function Hero() {
               Resume
             </a>
             <a href="#contact" className="btn">Contact Me</a>
-            <button className="btn btn-ghost" onClick={() => setEditing(true)}>Edit Profile</button>
+            {isAdmin && (
+              <button className="btn btn-ghost" onClick={() => setEditing(true)}>Edit Profile</button>
+            )}
           </div>
         </div>
         <div className="hero-photo">

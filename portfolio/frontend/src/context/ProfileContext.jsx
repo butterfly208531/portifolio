@@ -14,8 +14,10 @@ export function ProfileProvider({ children }) {
       .finally(() => setLoading(false))
   }, [])
 
-  const updateProfile = async (data) => {
-    const res = await api.put('/api/profile', data)
+  const updateProfile = async (data, token) => {
+    const res = await api.put('/api/profile', data, {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    })
     setProfile(res.data)
   }
 

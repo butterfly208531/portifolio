@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Project = require('../models/Project');
+const { authMiddleware, adminOnly } = require('../middleware/auth');
 
-// GET all projects
+// GET all projects — public
 router.get('/', async (req, res) => {
   try {
     const projects = await Project.find().sort({ createdAt: -1 });
@@ -12,8 +13,8 @@ router.get('/', async (req, res) => {
   }
 });
 
-// POST create a project
-router.post('/', async (req, res) => {
+// POST create a project — admin only
+router.post('/', authMiddleware, adminOnly, async (req, res) => {
   try {
     const project = new Project(req.body);
     await project.save();
@@ -23,8 +24,8 @@ router.post('/', async (req, res) => {
   }
 });
 
-// DELETE a project
-router.delete('/:id', async (req, res) => {
+// DELETE a project — admin only
+router.delete('/:id', authMiddleware, adminOnly, async (req, res) => {
   try {
     await Project.findByIdAndDelete(req.params.id);
     res.json({ message: 'Project deleted' });

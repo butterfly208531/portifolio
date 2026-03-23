@@ -3,14 +3,17 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import { ThemeProvider } from './context/ThemeContext'
 import { ProfileProvider } from './context/ProfileContext'
+import { AuthProvider } from './context/AuthContext'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider>
-      <ProfileProvider>
-        <App />
-      </ProfileProvider>
+      <AuthProvider>
+        <ProfileProvider>
+          <App />
+        </ProfileProvider>
+      </AuthProvider>
     </ThemeProvider>
   </React.StrictMode>
 )
