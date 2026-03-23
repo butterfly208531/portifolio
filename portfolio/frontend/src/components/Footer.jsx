@@ -1,4 +1,3 @@
-import VisitorCounter from './VisitorCounter'
 import './Footer.css'
 
 function Footer() {
@@ -20,7 +19,6 @@ function Footer() {
       <p className="footer-copy">
         © {year} <span>Seble Mengistu</span>. Designed &amp; Built with care.
       </p>
-      <VisitorCounter />
     </footer>
   )
 }

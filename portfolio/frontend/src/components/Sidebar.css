@@ -43,6 +43,12 @@
   margin-top: 0.8rem;
 }
 
+.sidebar-visitor {
+  margin-top: 0.8rem;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
 @media (max-width: 768px) {
   .sidebar { display: none; }
 }

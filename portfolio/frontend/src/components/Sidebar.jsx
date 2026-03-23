@@ -1,4 +1,5 @@
 import { useProfile } from '../context/ProfileContext'
+import VisitorCounter from './VisitorCounter'
 import './Sidebar.css'
 
 function Sidebar() {
@@ -35,6 +36,9 @@ function Sidebar() {
           </a>
         </div>
         <div className="sidebar-line" />
+        <div className="sidebar-visitor">
+          <VisitorCounter />
+        </div>
       </div>
     </aside>
   )
