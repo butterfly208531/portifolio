@@ -2,10 +2,22 @@
   position: fixed;
   top: 0;
   width: 100%;
-  background: rgba(20, 16, 16, 0.97);
-  border-bottom: 1px solid var(--border);
+  background: transparent;
+  border-bottom: 1px solid transparent;
   z-index: 100;
-  padding: 1.2rem 0;
+  padding: 1.4rem 0;
+  transition: background 0.3s, border-color 0.3s, padding 0.3s;
+}
+
+.navbar.scrolled {
+  background: rgba(10, 10, 10, 0.95);
+  border-bottom-color: var(--border);
+  padding: 1rem 0;
+  backdrop-filter: blur(10px);
+}
+
+[data-theme='light'] .navbar.scrolled {
+  background: rgba(255, 255, 255, 0.95);
 }
 
 .navbar-inner {
@@ -14,10 +26,61 @@
   align-items: center;
 }
 
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 2px;
+  text-decoration: none;
+}
+
+.logo:hover {
+  color: var(--accent-light);
+}
+
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 2.5rem;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2.5rem;
+}
+
+.nav-links a {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.nav-links a.active::after,
+.nav-links a:hover::after {
+  width: 100%;
 }
 
 .theme-toggle {
@@ -25,7 +88,7 @@
   border: 1px solid var(--border);
   color: var(--text-muted);
   cursor: pointer;
-  padding: 0.4rem;
+  padding: 0.45rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,29 +100,6 @@
   border-color: var(--accent);
 }
 
-.logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.3rem;
-  font-weight: 400;
-  color: var(--text);
-  letter-spacing: 1px;
-}
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 2.5rem;
-}
-
-.nav-links a {
-  color: var(--text-muted);
-  font-size: 0.78rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  transition: color 0.2s;
-}
-
-.nav-links a:hover {
-  color: var(--text);
-  text-decoration: none;
+@media (max-width: 768px) {
+  .nav-links { display: none; }
 }

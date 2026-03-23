@@ -26,7 +26,7 @@
   width: 2px;
   height: 0;
   background: var(--accent);
-  transition: height 0.3s;
+  transition: height 0.4s;
 }
 
 .project-card:hover {
@@ -39,7 +39,7 @@
 
 .project-number {
   font-family: 'Playfair Display', serif;
-  font-size: 3rem;
+  font-size: 2.5rem;
   color: var(--border);
   line-height: 1;
   margin-bottom: 1rem;
@@ -50,13 +50,13 @@
   font-family: 'Playfair Display', serif;
   color: var(--text);
   margin-bottom: 0.75rem;
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   font-weight: 400;
 }
 
-.project-card p {
+.project-card > p {
   color: var(--text-muted);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   margin-bottom: 1.5rem;
   line-height: 1.8;
 }
@@ -70,7 +70,7 @@
 
 .tag {
   color: var(--accent-light);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   letter-spacing: 1px;
   text-transform: uppercase;
   border: 1px solid var(--border);
@@ -84,10 +84,13 @@
 
 .project-links a {
   color: var(--text-muted);
-  font-size: 0.78rem;
-  letter-spacing: 2px;
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
   transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .project-links a:hover {

@@ -6,8 +6,8 @@
 
 .about-content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5rem;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 6rem;
   align-items: start;
 }
 
@@ -18,14 +18,31 @@
   line-height: 1.9;
 }
 
-.skills {
-  margin-top: 2rem;
+.about-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 1.5rem 0 2rem;
 }
 
-.skills > p {
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.meta-item i {
+  color: var(--accent);
+  width: 14px;
+  font-size: 0.8rem;
+}
+
+.skills-label {
   color: var(--accent-light);
-  font-size: 0.78rem;
-  letter-spacing: 2px;
+  font-size: 0.72rem;
+  letter-spacing: 3px;
   text-transform: uppercase;
   margin-bottom: 1rem;
 }
@@ -39,24 +56,25 @@
 
 .skills-list li {
   color: var(--text-muted);
-  font-size: 0.9rem;
-  padding-left: 1rem;
+  font-size: 0.88rem;
+  padding-left: 1.2rem;
   position: relative;
 }
 
 .skills-list li::before {
-  content: '—';
+  content: '▸';
   color: var(--accent);
   position: absolute;
   left: 0;
   font-size: 0.7rem;
-  top: 3px;
+  top: 2px;
 }
 
 .about-stats {
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
+  padding-top: 0.5rem;
 }
 
 .stat-item {
@@ -66,7 +84,7 @@
 
 .stat-number {
   font-family: 'Playfair Display', serif;
-  font-size: 3rem;
+  font-size: 2.8rem;
   color: var(--text);
   line-height: 1;
   margin-bottom: 0.3rem;
@@ -74,7 +92,7 @@
 
 .stat-label {
   color: var(--text-muted);
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   letter-spacing: 2px;
   text-transform: uppercase;
 }
