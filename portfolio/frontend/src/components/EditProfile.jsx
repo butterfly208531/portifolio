@@ -15,12 +15,21 @@ function EditProfile({ onClose }) {
     github: profile?.github || '',
     linkedin: profile?.linkedin || '',
     email: profile?.email || '',
+    avatar: profile?.avatar || '',
   })
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
+  }
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onloadend = () => setForm((prev) => ({ ...prev, avatar: reader.result }))
+    reader.readAsDataURL(file)
   }
 
   const handleSubmit = async (e) => {
@@ -43,6 +52,16 @@ function EditProfile({ onClose }) {
           <button className="ep-close" onClick={onClose}>✕</button>
         </div>
         <form className="ep-form" onSubmit={handleSubmit}>
+          <div className="ep-row ep-avatar-row">
+            <label>Profile Picture</label>
+            <div className="ep-avatar-preview">
+              {form.avatar
+                ? <img src={form.avatar} alt="avatar preview" />
+                : <div className="ep-avatar-placeholder"><i className="fa fa-user" /></div>
+              }
+            </div>
+            <input type="file" accept="image/*" onChange={handleImageChange} />
+          </div>
           <div className="ep-row">
             <label>Name</label>
             <input name="name" value={form.name} onChange={handleChange} required />

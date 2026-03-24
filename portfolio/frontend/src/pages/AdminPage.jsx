@@ -22,6 +22,11 @@ function AdminPage() {
   const [newProject, setNewProject] = useState({ title: '', description: '', technologies: '', githubUrl: '', liveUrl: '' })
   const [projectMsg, setProjectMsg] = useState('')
 
+  // Experience state
+  const [experiences, setExperiences] = useState([])
+  const [newExp, setNewExp] = useState({ title: '', company: '', duration: '', type: 'Full-time', achievements: '' })
+  const [expMsg, setExpMsg] = useState('')
+
   // Messages state
   const [messages, setMessages] = useState([])
 
@@ -30,6 +35,7 @@ function AdminPage() {
     fetchProfile()
     fetchProjects()
     fetchMessages()
+    fetchExperiences()
   }, [isAdmin])
 
   const fetchProfile = () => {
@@ -43,8 +49,20 @@ function AdminPage() {
         github: r.data.github || '',
         linkedin: r.data.linkedin || '',
         email: r.data.email || '',
+        avatar: r.data.avatar || '',
+        yearsExperience: r.data.yearsExperience ?? 1,
+        telegram: r.data.telegram || '',
+        instagram: r.data.instagram || '',
       })
     })
+  }
+
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onloadend = () => setProfileForm(prev => ({ ...prev, avatar: reader.result }))
+    reader.readAsDataURL(file)
   }
 
   const fetchProjects = () => {
@@ -55,6 +73,32 @@ function AdminPage() {
     api.get('/api/contact', {
       headers: { Authorization: `Bearer ${auth?.token}` }
     }).then(r => setMessages(r.data)).catch(() => {})
+  }
+
+  const fetchExperiences = () => {
+    api.get('/api/experience').then(r => setExperiences(r.data)).catch(() => {})
+  }
+
+  const addExperience = async (e) => {
+    e.preventDefault()
+    try {
+      await api.post('/api/experience',
+        { ...newExp, achievements: newExp.achievements.split('\n').map(s => s.trim()).filter(Boolean) },
+        { headers: { Authorization: `Bearer ${auth?.token}` } }
+      )
+      setNewExp({ title: '', company: '', duration: '', type: 'Full-time', achievements: '' })
+      setExpMsg('Added!')
+      setTimeout(() => setExpMsg(''), 2000)
+      fetchExperiences()
+    } catch { setExpMsg('Error adding') }
+  }
+
+  const deleteExperience = async (id) => {
+    if (!window.confirm('Delete this experience?')) return
+    await api.delete(`/api/experience/${id}`, {
+      headers: { Authorization: `Bearer ${auth?.token}` }
+    })
+    fetchExperiences()
   }
 
   const saveProfile = async (e) => {
@@ -112,9 +156,9 @@ function AdminPage() {
       <aside className="admin-sidebar">
         <div className="admin-logo">SM Admin</div>
         <nav className="admin-nav">
-          {['projects', 'profile', 'messages'].map(t => (
+          {['projects', 'experience', 'profile', 'messages'].map(t => (
             <button key={t} className={`admin-nav-item${tab === t ? ' active' : ''}`} onClick={() => setTab(t)}>
-              <i className={`fa ${t === 'projects' ? 'fa-code' : t === 'profile' ? 'fa-user' : 'fa-envelope'}`} />
+              <i className={`fa ${t === 'projects' ? 'fa-code' : t === 'experience' ? 'fa-briefcase' : t === 'profile' ? 'fa-user' : 'fa-envelope'}`} />
               {t.charAt(0).toUpperCase() + t.slice(1)}
             </button>
           ))}
@@ -132,7 +176,7 @@ function AdminPage() {
       <main className="admin-main">
         <div className="admin-header">
           <h2 className="admin-title">
-            {tab === 'projects' ? 'Projects' : tab === 'profile' ? 'Profile' : 'Messages'}
+            {tab === 'projects' ? 'Projects' : tab === 'experience' ? 'Experience' : tab === 'profile' ? 'Profile' : 'Messages'}
           </h2>
           <span className="admin-user">👋 {auth?.username}</span>
         </div>
@@ -179,12 +223,78 @@ function AdminPage() {
           </div>
         )}
 
+        {/* EXPERIENCE TAB */}
+        {tab === 'experience' && (
+          <div className="admin-content">
+            <div className="admin-card">
+              <h3>Add Experience</h3>
+              <form className="admin-form" onSubmit={addExperience}>
+                <div className="admin-form-row">
+                  <div className="admin-field">
+                    <label>Job Title</label>
+                    <input placeholder="e.g. Full Stack Developer" value={newExp.title} onChange={e => setNewExp({...newExp, title: e.target.value})} required />
+                  </div>
+                  <div className="admin-field">
+                    <label>Company</label>
+                    <input placeholder="e.g. Acme Inc." value={newExp.company} onChange={e => setNewExp({...newExp, company: e.target.value})} required />
+                  </div>
+                </div>
+                <div className="admin-form-row">
+                  <div className="admin-field">
+                    <label>Duration</label>
+                    <input placeholder="e.g. 2023 — Present" value={newExp.duration} onChange={e => setNewExp({...newExp, duration: e.target.value})} required />
+                  </div>
+                  <div className="admin-field">
+                    <label>Type</label>
+                    <input placeholder="e.g. Full-time, Internship" value={newExp.type} onChange={e => setNewExp({...newExp, type: e.target.value})} />
+                  </div>
+                </div>
+                <div className="admin-field">
+                  <label>Achievements (one per line)</label>
+                  <textarea rows="4" placeholder="Built REST APIs with Node.js&#10;Worked on React features" value={newExp.achievements} onChange={e => setNewExp({...newExp, achievements: e.target.value})} />
+                </div>
+                <div className="admin-form-actions">
+                  <button type="submit" className="btn btn-primary">Add Experience</button>
+                  {expMsg && <span className="admin-msg">{expMsg}</span>}
+                </div>
+              </form>
+            </div>
+            <div className="admin-card">
+              <h3>All Experience ({experiences.length})</h3>
+              <div className="admin-projects-list">
+                {experiences.map(exp => (
+                  <div key={exp._id} className="admin-project-item">
+                    <div>
+                      <p className="admin-project-title">{exp.title} — {exp.company}</p>
+                      <p className="admin-project-tech">{exp.duration} · {exp.type}</p>
+                    </div>
+                    <button className="admin-delete-btn" onClick={() => deleteExperience(exp._id)}>
+                      <i className="fa fa-trash" />
+                    </button>
+                  </div>
+                ))}
+                {experiences.length === 0 && <p className="admin-empty">No experience added yet.</p>}
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* PROFILE TAB */}
         {tab === 'profile' && (
           <div className="admin-content">
             <div className="admin-card">
               <h3>Edit Profile</h3>
               <form className="admin-form" onSubmit={saveProfile}>
+                <div className="admin-field">
+                  <label>Profile Picture</label>
+                  <div className="admin-avatar-preview">
+                    {profileForm.avatar
+                      ? <img src={profileForm.avatar} alt="avatar" />
+                      : <div className="admin-avatar-placeholder"><i className="fa fa-user" /></div>
+                    }
+                  </div>
+                  <input type="file" accept="image/*" onChange={handleAvatarChange} />
+                </div>
                 <div className="admin-form-row">
                   <div className="admin-field">
                     <label>Name</label>
@@ -213,9 +323,23 @@ function AdminPage() {
                     <input value={profileForm.linkedin || ''} onChange={e => setProfileForm({...profileForm, linkedin: e.target.value})} />
                   </div>
                 </div>
+                <div className="admin-form-row">
+                  <div className="admin-field">
+                    <label>Telegram URL</label>
+                    <input placeholder="https://t.me/username" value={profileForm.telegram || ''} onChange={e => setProfileForm({...profileForm, telegram: e.target.value})} />
+                  </div>
+                  <div className="admin-field">
+                    <label>Instagram URL</label>
+                    <input placeholder="https://instagram.com/username" value={profileForm.instagram || ''} onChange={e => setProfileForm({...profileForm, instagram: e.target.value})} />
+                  </div>
+                </div>
                 <div className="admin-field">
                   <label>Email</label>
                   <input type="email" value={profileForm.email || ''} onChange={e => setProfileForm({...profileForm, email: e.target.value})} />
+                </div>
+                <div className="admin-field">
+                  <label>Years of Experience</label>
+                  <input type="number" min="0" value={profileForm.yearsExperience ?? 1} onChange={e => setProfileForm({...profileForm, yearsExperience: Number(e.target.value)})} />
                 </div>
                 <div className="admin-form-actions">
                   <button type="submit" className="btn btn-primary" disabled={profileSaving}>
@@ -250,6 +374,14 @@ function AdminPage() {
           </div>
         )}
       </main>
+      <nav className="admin-mobile-nav">
+        {['projects', 'experience', 'profile', 'messages'].map(t => (
+          <button key={t} className={tab === t ? 'active' : ''} onClick={() => setTab(t)}>
+            <i className={`fa ${t === 'projects' ? 'fa-code' : t === 'experience' ? 'fa-briefcase' : t === 'profile' ? 'fa-user' : 'fa-envelope'}`} />
+            {t.charAt(0).toUpperCase() + t.slice(1)}
+          </button>
+        ))}
+      </nav>
     </div>
   )
 }

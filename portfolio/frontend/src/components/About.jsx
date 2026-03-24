@@ -1,9 +1,16 @@
+import { useEffect, useState } from 'react'
 import { useProfile } from '../context/ProfileContext'
+import api from '../api'
 import './About.css'
 
 function About() {
   const { profile, loading } = useProfile()
   const skills = profile?.skills || ['JavaScript', 'React', 'Node.js', 'Express', 'MongoDB', 'HTML & CSS', 'Git', 'REST APIs']
+  const [projectCount, setProjectCount] = useState(null)
+
+  useEffect(() => {
+    api.get('/api/projects').then(r => setProjectCount(r.data.length)).catch(() => {})
+  }, [])
 
   if (loading) {
     return (
@@ -57,15 +64,15 @@ function About() {
           </div>
           <div className="about-stats">
             <div className="stat-item">
-              <div className="stat-number">1+</div>
+              <div className="stat-number">{profile?.yearsExperience ?? 1}+</div>
               <div className="stat-label">Years Experience</div>
             </div>
             <div className="stat-item">
-              <div className="stat-number">10+</div>
+              <div className="stat-number">{projectCount !== null ? `${projectCount}+` : '...'}</div>
               <div className="stat-label">Projects Built</div>
             </div>
             <div className="stat-item">
-              <div className="stat-number">5+</div>
+              <div className="stat-number">{skills.length}+</div>
               <div className="stat-label">Technologies</div>
             </div>
             <div className="stat-item">

@@ -24,19 +24,18 @@ function Hero() {
             {profile?.bio || 'I craft clean, purposeful web experiences using the MERN stack — turning ideas into fast, accessible, and beautiful products.'}
           </p>
           <div className="hero-cta">
-            <a href="/resume.pdf" target="_blank" rel="noreferrer" className="btn btn-primary">
-              <i className="fa fa-download" style={{ marginRight: '8px' }} />
-              Resume
-            </a>
-            <a href="#contact" className="btn">Contact Me</a>
+            <a href="#contact" className="btn btn-primary">Contact Me</a>
           </div>
         </div>
         <div className="hero-photo">
           <div className="photo-frame">
-            <div className="photo-placeholder">
-              <i className="fa fa-user" />
-              <span>Your Photo</span>
-            </div>
+            {profile?.avatar
+              ? <img src={profile.avatar} alt={profile.name} className="photo-img" />
+              : <div className="photo-placeholder">
+                  <i className="fa fa-user" />
+                  <span>Your Photo</span>
+                </div>
+            }
           </div>
           <div className="photo-accent" />
         </div>

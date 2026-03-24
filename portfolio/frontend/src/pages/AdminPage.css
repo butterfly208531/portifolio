@@ -350,6 +350,70 @@
 
 @media (max-width: 768px) {
   .admin-sidebar { display: none; }
-  .admin-main { margin-left: 0; padding: 1.5rem; }
+  .admin-main { margin-left: 0; padding: 1rem; }
   .admin-form-row { grid-template-columns: 1fr; }
+  .admin-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .admin-card { padding: 1.2rem; }
+}
+
+/* Mobile bottom nav for admin */
+.admin-mobile-nav {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .admin-mobile-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--bg-alt);
+    border-top: 1px solid var(--border);
+    z-index: 50;
+  }
+  .admin-mobile-nav button {
+    flex: 1;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    padding: 0.9rem 0;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: 'Space Grotesk', sans-serif;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    transition: color 0.2s;
+  }
+  .admin-mobile-nav button.active,
+  .admin-mobile-nav button:hover { color: var(--text); }
+  .admin-mobile-nav button i { font-size: 1rem; }
+  .admin-main { padding-bottom: 70px; }
+}
+
+/* Avatar upload */
+.admin-avatar-preview {
+  width: 110px;
+  height: 110px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem 0;
+  background: var(--bg-card);
+}
+
+.admin-avatar-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.admin-avatar-placeholder {
+  font-size: 2.5rem;
+  color: var(--text-muted);
+  opacity: 0.4;
 }

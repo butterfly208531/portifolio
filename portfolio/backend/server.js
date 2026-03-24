@@ -7,7 +7,7 @@ const app = express();
 
 // Middleware
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));
@@ -15,6 +15,7 @@ app.use('/api/projects', require('./routes/projects'));
 app.use('/api/contact', require('./routes/contact'));
 app.use('/api/profile', require('./routes/profile'));
 app.use('/api/visitors', require('./routes/visitors'));
+app.use('/api/experience', require('./routes/experience'));
 
 // Health check
 app.get('/', (req, res) => {

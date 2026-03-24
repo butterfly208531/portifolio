@@ -7,7 +7,11 @@ const profileSchema = new mongoose.Schema({
   skills: { type: [String], default: ['JavaScript', 'React', 'Node.js', 'Express', 'MongoDB', 'HTML & CSS'] },
   github: { type: String, default: 'https://github.com' },
   linkedin: { type: String, default: 'https://linkedin.com' },
-  email: { type: String, default: 'your@email.com' },
+  email: { type: String, default: 'seblemen94@gmail.com' },
+  avatar: { type: String, default: '' },
+  yearsExperience: { type: Number, default: 1 },
+  telegram: { type: String, default: '' },
+  instagram: { type: String, default: '' },
 });
 
 module.exports = mongoose.model('Profile', profileSchema);

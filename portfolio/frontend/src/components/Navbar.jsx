@@ -8,6 +8,7 @@ function Navbar() {
   const { theme, toggle } = useTheme()
   const [active, setActive] = useState('')
   const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     const onScroll = () => {
@@ -23,15 +24,17 @@ function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  const closeMenu = () => setMenuOpen(false)
+
   return (
     <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
       <div className="container navbar-inner">
         <a href="#" className="logo">SM</a>
         <div className="nav-right">
-          <ul className="nav-links">
+          <ul className={`nav-links${menuOpen ? ' open' : ''}`}>
             {sections.map((s) => (
               <li key={s}>
-                <a href={`#${s}`} className={active === s ? 'active' : ''}>
+                <a href={`#${s}`} className={active === s ? 'active' : ''} onClick={closeMenu}>
                   {s.charAt(0).toUpperCase() + s.slice(1)}
                 </a>
               </li>
@@ -51,6 +54,11 @@ function Navbar() {
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
               </svg>
             )}
+          </button>
+          <button className="hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Toggle menu">
+            <span className={menuOpen ? 'bar open' : 'bar'} />
+            <span className={menuOpen ? 'bar open' : 'bar'} />
+            <span className={menuOpen ? 'bar open' : 'bar'} />
           </button>
         </div>
       </div>
