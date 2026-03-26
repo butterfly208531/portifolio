@@ -348,27 +348,33 @@
   padding: 1rem 0;
 }
 
-/* Tablet - narrow sidebar */
+/* Tablet + Mobile - icon-only sidebar */
 @media (max-width: 768px) {
-  .admin-sidebar { width: 56px; }
-  .admin-main { margin-left: 56px; padding: 1.5rem 1rem; }
+  .admin-sidebar {
+    width: 56px !important;
+    min-width: 56px;
+    overflow: hidden;
+  }
+  .admin-main {
+    margin-left: 56px !important;
+    padding: 1.2rem 1rem;
+    width: calc(100% - 56px);
+  }
   .admin-form-row { grid-template-columns: 1fr; }
   .admin-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-  .admin-card { padding: 1.5rem 1rem; }
+  .admin-card { padding: 1.2rem 1rem; }
   .admin-logo { display: none; }
-  .admin-nav-item { justify-content: center; padding: 0.8rem; }
-  .admin-nav-item i { width: auto; font-size: 1.1rem; }
+  .admin-nav-item { justify-content: center; padding: 0.8rem 0; width: 100%; }
+  .admin-nav-item i { width: auto; font-size: 1.1rem; margin: 0; }
   .admin-nav-item .nav-label { display: none; }
   .admin-sidebar-footer { padding: 0.8rem 0; align-items: center; }
   .admin-view-site .link-label,
   .admin-logout .link-label { display: none; }
-  .admin-view-site, .admin-logout { justify-content: center; }
+  .admin-view-site, .admin-logout { justify-content: center; padding: 0; }
 }
 
-/* Mobile - same as tablet */
 @media (max-width: 480px) {
   .admin-main { padding: 1rem 0.8rem; }
-  .admin-card { padding: 1rem 0.8rem; }
 }
 
 /* Avatar upload */
