@@ -4,17 +4,83 @@ import './Experience.css'
 
 const STUDENT_EXPERIENCE = [
   {
-    _id: 'student1',
-    title: 'Full Stack Developer Student',
-    company: 'Self-Learning & Personal Projects',
-    duration: '2023 — Present',
-    type: 'Student',
+    _id: 'exp1',
+    title: 'Kindergarten',
+    company: 'Early Education',
+    duration: 'Early Years',
+    type: 'Education',
     achievements: [
-      'Building full-stack web applications using the MERN stack (MongoDB, Express, React, Node.js).',
-      'Developed desktop applications with C# WinForms and .NET.',
+      'Learned to play, share, and write letters in Amharic and English.',
+    ],
+  },
+  {
+    _id: 'exp2',
+    title: 'Class 1 — Formal School Entry',
+    company: 'Primary School',
+    duration: '2010',
+    type: 'Education',
+    achievements: [
+      'Entered formal primary school. Started learning with textbooks, notebooks, and homework.',
+    ],
+  },
+  {
+    _id: 'exp3',
+    title: 'Primary School (Grades 1–8)',
+    company: 'Primary School',
+    duration: '2010 – 2015',
+    type: 'Education',
+    achievements: [
+      'Completed 8 years of primary education.',
+      'Took the Grade 8 national exit exam to qualify for secondary school.',
+    ],
+  },
+  {
+    _id: 'exp4',
+    title: 'Secondary School (Grades 9–10)',
+    company: 'Secondary School',
+    duration: '2016 – 2018',
+    type: 'Education',
+    achievements: [
+      'Studied general subjects across core disciplines.',
+      'Did not take the Grade 10 national exam due to circumstances.',
+    ],
+  },
+  {
+    _id: 'exp5',
+    title: 'Preparatory School (Grades 11–12)',
+    company: 'Preparatory School',
+    duration: '2019 – 2021',
+    type: 'Education',
+    achievements: [
+      'Continued to preparatory school and chose the Natural Science stream.',
+      'Prepared for the Ethiopian University Entrance Examination (EUEE).',
+      'COVID-19 disrupted classes and exams during this period.',
+    ],
+  },
+  {
+    _id: 'exp6',
+    title: 'University Entrance',
+    company: 'EUEE — Ethiopian University Entrance Examination',
+    duration: '2022',
+    type: 'Education',
+    achievements: [
+      'Took the EUEE national university entrance exam.',
+      'Did not score high enough for regular placement.',
+      'Entered university through the remedial program.',
+    ],
+  },
+  {
+    _id: 'exp7',
+    title: 'Information Technology Student',
+    company: 'Wollo University',
+    duration: '2022 – Present',
+    type: 'University',
+    achievements: [
+      'Currently studying Information Technology at Wollo University.',
+      'Building full-stack web applications using the MERN stack.',
+      'Developing desktop apps with C# WinForms and .NET.',
       'Practicing Python, Java, C++, and Android development through personal projects.',
-      'Continuously learning modern web technologies, clean code principles, and software design patterns.',
-      'Built and deployed a personal portfolio website with admin dashboard, visitor counter, and project showcase.',
+      'Built and deployed a personal portfolio with admin dashboard and project showcase.',
     ],
   },
 ]
