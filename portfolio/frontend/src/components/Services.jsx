@@ -21,6 +21,31 @@ const services = [
     title: 'UI/UX Design',
     description: 'Clean, minimalist interfaces focused on usability. Turning wireframes and ideas into polished, accessible products.',
   },
+  {
+    icon: 'fa-laptop-code',
+    title: 'C++ Development',
+    description: 'High-performance desktop and system applications using C++. Memory management, OOP, and efficient algorithms.',
+  },
+  {
+    icon: 'fa-coffee',
+    title: 'Java Development',
+    description: 'Cross-platform applications and backend services built with Java. Spring Boot, OOP design patterns, and enterprise solutions.',
+  },
+  {
+    icon: 'fa-windows',
+    title: 'C# / .NET Development',
+    description: 'Windows desktop apps with WinForms and WPF, plus .NET backend services. Clean architecture and modern C# practices.',
+  },
+  {
+    icon: 'fa-python',
+    title: 'Python Development',
+    description: 'Scripting, automation, data processing, and backend APIs with Python. Flask, Django, and data science libraries.',
+  },
+  {
+    icon: 'fa-android',
+    title: 'Android Development',
+    description: 'Native Android applications built with Java/Kotlin. Intuitive UI, device API integration, and Play Store deployment.',
+  },
 ]
 
 function Services() {
@@ -38,7 +63,7 @@ function Services() {
               </div>
               <h3>{s.title}</h3>
               <p>{s.description}</p>
-              <div className="service-number">0{i + 1}</div>
+              <div className="service-number">{String(i + 1).padStart(2, '0')}</div>
             </div>
           ))}
         </div>
