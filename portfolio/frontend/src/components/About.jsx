@@ -38,7 +38,7 @@ function About() {
         <div className="about-content">
           <div className="about-text">
             <p>{profile?.bio || 'I\'m a passionate full stack developer who loves building clean, user-friendly web applications. I enjoy turning complex problems into simple, beautiful solutions.'}</p>
-            <p>I care about writing clean, readable code and building experiences that feel natural and intuitive to use.</p>
+            <p>I care about writing readable code and building interfaces that feel natural and intuitive to use. Every project is an opportunity to learn something new. I'm passionate about solving problems creatively and constantly pushing my skills further to build better digital experiences.</p>
             <div className="about-meta">
               <div className="meta-item">
                 <i className="fa fa-map-marker-alt" />
@@ -87,3 +87,4 @@ function About() {
 }
 
 export default About
+
