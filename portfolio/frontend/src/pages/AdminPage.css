@@ -350,27 +350,24 @@
 
 /* Tablet - narrow sidebar */
 @media (max-width: 768px) {
-  .admin-sidebar { width: 160px; }
-  .admin-main { margin-left: 160px; padding: 1.5rem; }
+  .admin-sidebar { width: 56px; }
+  .admin-main { margin-left: 56px; padding: 1.5rem 1rem; }
   .admin-form-row { grid-template-columns: 1fr; }
   .admin-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-  .admin-card { padding: 1.5rem 1.2rem; }
-  .admin-logo { font-size: 1rem; padding: 0 1rem 1.2rem; }
-  .admin-nav-item { font-size: 0.78rem; padding: 0.65rem 0.8rem; }
-}
-
-/* Mobile - icon-only sidebar */
-@media (max-width: 480px) {
-  .admin-sidebar { width: 56px; }
-  .admin-main { margin-left: 56px; padding: 1rem; }
+  .admin-card { padding: 1.5rem 1rem; }
   .admin-logo { display: none; }
-  .admin-nav-item .nav-label { display: none; }
   .admin-nav-item { justify-content: center; padding: 0.8rem; }
   .admin-nav-item i { width: auto; font-size: 1.1rem; }
+  .admin-nav-item .nav-label { display: none; }
   .admin-sidebar-footer { padding: 0.8rem 0; align-items: center; }
   .admin-view-site .link-label,
   .admin-logout .link-label { display: none; }
   .admin-view-site, .admin-logout { justify-content: center; }
+}
+
+/* Mobile - same as tablet */
+@media (max-width: 480px) {
+  .admin-main { padding: 1rem 0.8rem; }
   .admin-card { padding: 1rem 0.8rem; }
 }
 
