@@ -2,14 +2,31 @@ import { useEffect, useState } from 'react'
 import api from '../api'
 import './Experience.css'
 
+const STUDENT_EXPERIENCE = [
+  {
+    _id: 'student1',
+    title: 'Full Stack Developer Student',
+    company: 'Self-Learning & Personal Projects',
+    duration: '2023 — Present',
+    type: 'Student',
+    achievements: [
+      'Building full-stack web applications using the MERN stack (MongoDB, Express, React, Node.js).',
+      'Developed desktop applications with C# WinForms and .NET.',
+      'Practicing Python, Java, C++, and Android development through personal projects.',
+      'Continuously learning modern web technologies, clean code principles, and software design patterns.',
+      'Built and deployed a personal portfolio website with admin dashboard, visitor counter, and project showcase.',
+    ],
+  },
+]
+
 function Experience() {
   const [experiences, setExperiences] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     api.get('/api/experience')
-      .then(r => setExperiences(r.data))
-      .catch(() => {})
+      .then(r => setExperiences(r.data.length ? r.data : STUDENT_EXPERIENCE))
+      .catch(() => setExperiences(STUDENT_EXPERIENCE))
       .finally(() => setLoading(false))
   }, [])
 
@@ -21,8 +38,6 @@ function Experience() {
         <div className="section-line" />
         {loading ? (
           <p style={{ color: 'var(--text-muted)' }}>Loading...</p>
-        ) : experiences.length === 0 ? (
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>No experience added yet.</p>
         ) : (
           <div className="timeline">
             {experiences.map((exp, i) => (
