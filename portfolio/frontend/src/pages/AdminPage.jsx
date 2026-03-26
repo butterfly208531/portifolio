@@ -374,14 +374,6 @@ function AdminPage() {
           </div>
         )}
       </main>
-      <nav className="admin-mobile-nav">
-        {['projects', 'experience', 'profile', 'messages'].map(t => (
-          <button key={t} className={tab === t ? 'active' : ''} onClick={() => setTab(t)}>
-            <i className={`fa ${t === 'projects' ? 'fa-code' : t === 'experience' ? 'fa-briefcase' : t === 'profile' ? 'fa-user' : 'fa-envelope'}`} />
-            {t.charAt(0).toUpperCase() + t.slice(1)}
-          </button>
-        ))}
-      </nav>
     </div>
   )
 }
