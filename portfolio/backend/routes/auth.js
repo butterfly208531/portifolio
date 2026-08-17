@@ -6,7 +6,7 @@ const User = require('../models/User');
 function signToken(user) {
   const secret = process.env.JWT_SECRET || 'fallback_secret_change_me';
   return jwt.sign(
-    { id: user._id, username: user.username, role: user.role },
+    { id: user.id, username: user.username, role: user.role },
     secret,
     { expiresIn: '7d' }
   );
@@ -16,7 +16,7 @@ function signToken(user) {
 router.post('/register', async (req, res) => {
   try {
     const { username, password, role } = req.body;
-    const exists = await User.findOne({ username });
+    const exists = await User.findByUsername(username);
     if (exists) return res.status(400).json({ error: 'Username already taken' });
     const user = await User.create({ username, password, role: role || 'visitor' });
     res.status(201).json({ token: signToken(user), role: user.role });
@@ -29,9 +29,9 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
-    const user = await User.findOne({ username });
+    const user = await User.findByUsername(username);
     if (!user) return res.status(401).json({ error: 'Invalid credentials' });
-    const match = await user.comparePassword(password);
+    const match = await User.comparePassword(user, password);
     if (!match) return res.status(401).json({ error: 'Invalid credentials' });
     res.json({ token: signToken(user), role: user.role, username: user.username });
   } catch (err) {

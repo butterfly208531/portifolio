@@ -6,7 +6,7 @@ const { authMiddleware, adminOnly } = require('../middleware/auth');
 // GET all projects — public
 router.get('/', async (req, res) => {
   try {
-    const projects = await Project.find().sort({ createdAt: -1 });
+    const projects = await Project.list();
     res.json(projects);
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch projects' });
@@ -16,8 +16,7 @@ router.get('/', async (req, res) => {
 // POST create a project — admin only
 router.post('/', authMiddleware, adminOnly, async (req, res) => {
   try {
-    const project = new Project(req.body);
-    await project.save();
+    const project = await Project.create(req.body);
     res.status(201).json(project);
   } catch (err) {
     res.status(400).json({ error: 'Failed to create project' });
@@ -27,7 +26,7 @@ router.post('/', authMiddleware, adminOnly, async (req, res) => {
 // DELETE a project — admin only
 router.delete('/:id', authMiddleware, adminOnly, async (req, res) => {
   try {
-    await Project.findByIdAndDelete(req.params.id);
+    await Project.deleteById(req.params.id);
     res.json({ message: 'Project deleted' });
   } catch (err) {
     res.status(500).json({ error: 'Failed to delete project' });

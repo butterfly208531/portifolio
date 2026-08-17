@@ -6,7 +6,7 @@ const { authMiddleware, adminOnly } = require('../middleware/auth');
 // GET all — public
 router.get('/', async (req, res) => {
   try {
-    const list = await Experience.find().sort({ order: 1, createdAt: -1 });
+    const list = await Experience.list();
     res.json(list);
   } catch { res.status(500).json({ error: 'Failed to fetch' }); }
 });
@@ -22,7 +22,7 @@ router.post('/', authMiddleware, adminOnly, async (req, res) => {
 // DELETE — admin
 router.delete('/:id', authMiddleware, adminOnly, async (req, res) => {
   try {
-    await Experience.findByIdAndDelete(req.params.id);
+    await Experience.deleteById(req.params.id);
     res.json({ success: true });
   } catch { res.status(500).json({ error: 'Failed to delete' }); }
 });

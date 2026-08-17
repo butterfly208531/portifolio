@@ -1,12 +1,45 @@
-const mongoose = require('mongoose');
+const { supabase, mapRow } = require('../db/supabase');
 
-const experienceSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  company: { type: String, required: true },
-  duration: { type: String, required: true },
-  type: { type: String, default: 'Full-time' },
-  achievements: { type: [String], default: [] },
-  order: { type: Number, default: 0 },
-}, { timestamps: true });
+const FIELD_MAP = {
+  title: 'title',
+  company: 'company',
+  duration: 'duration',
+  type: 'type',
+  achievements: 'achievements',
+  order: 'order',
+};
 
-module.exports = mongoose.model('Experience', experienceSchema);
+function toInsert(body) {
+  const row = {};
+  for (const [from, to] of Object.entries(FIELD_MAP)) {
+    if (body[from] !== undefined) row[to] = body[from];
+  }
+  return row;
+}
+
+async function list() {
+  const { data, error } = await supabase
+    .from('experiences')
+    .select('*')
+    .order('order', { ascending: true })
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+  return data.map(mapRow);
+}
+
+async function create(body) {
+  const { data, error } = await supabase
+    .from('experiences')
+    .insert(toInsert(body))
+    .select()
+    .single();
+  if (error) throw error;
+  return mapRow(data);
+}
+
+async function deleteById(id) {
+  const { error } = await supabase.from('experiences').delete().eq('id', id);
+  if (error) throw error;
+}
+
+module.exports = { list, create, deleteById };

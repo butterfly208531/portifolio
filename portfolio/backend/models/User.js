@@ -1,21 +1,34 @@
-const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const { supabase, mapRow } = require('../db/supabase');
 
-const userSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  role: { type: String, enum: ['admin', 'visitor'], default: 'visitor' },
-}, { timestamps: true });
+async function findByUsername(username) {
+  const { data, error } = await supabase
+    .from('users')
+    .select('*')
+    .eq('username', username)
+    .maybeSingle();
+  if (error) throw error;
+  return data ? mapRow(data) : null;
+}
 
-// Hash password before saving
-userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
-  this.password = await bcrypt.hash(this.password, 10);
-  next();
-});
+async function create({ username, password, role = 'visitor' }) {
+  const hashed = await bcrypt.hash(password, 10);
+  const { data, error } = await supabase
+    .from('users')
+    .insert({ username, password: hashed, role })
+    .select()
+    .single();
+  if (error) throw error;
+  return mapRow(data);
+}
 
-userSchema.methods.comparePassword = function (plain) {
-  return bcrypt.compare(plain, this.password);
-};
+async function deleteByUsername(username) {
+  const { error } = await supabase.from('users').delete().eq('username', username);
+  if (error) throw error;
+}
 
-module.exports = mongoose.model('User', userSchema);
+async function comparePassword(user, plain) {
+  return bcrypt.compare(plain, user.password);
+}
+
+module.exports = { findByUsername, create, deleteByUsername, comparePassword };

@@ -6,8 +6,7 @@ const { authMiddleware, adminOnly } = require('../middleware/auth');
 // GET profile — public
 router.get('/', async (req, res) => {
   try {
-    let profile = await Profile.findOne();
-    if (!profile) profile = await Profile.create({});
+    const profile = await Profile.getOrCreate();
     res.json(profile);
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch profile' });
@@ -17,13 +16,7 @@ router.get('/', async (req, res) => {
 // PUT update profile — admin only
 router.put('/', authMiddleware, adminOnly, async (req, res) => {
   try {
-    let profile = await Profile.findOne();
-    if (!profile) {
-      profile = await Profile.create(req.body);
-    } else {
-      Object.assign(profile, req.body);
-      await profile.save();
-    }
+    const profile = await Profile.update(req.body);
     res.json(profile);
   } catch (err) {
     res.status(500).json({ error: 'Failed to update profile' });

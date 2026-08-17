@@ -10,8 +10,7 @@ router.post('/', async (req, res) => {
     return res.status(400).json({ error: 'All fields are required' });
   }
   try {
-    const newMessage = new Message({ name, email, message });
-    await newMessage.save();
+    await Message.create({ name, email, message });
     res.status(201).json({ success: true, message: 'Message received!' });
   } catch (err) {
     res.status(500).json({ error: 'Failed to save message' });
@@ -21,7 +20,7 @@ router.post('/', async (req, res) => {
 // GET all messages — admin only
 router.get('/', authMiddleware, adminOnly, async (req, res) => {
   try {
-    const messages = await Message.find().sort({ createdAt: -1 });
+    const messages = await Message.list();
     res.json(messages);
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch messages' });
