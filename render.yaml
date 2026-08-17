@@ -5,16 +5,17 @@ services:
     rootDir: portfolio/backend
     buildCommand: npm install
     startCommand: node server.js
+    healthCheckPath: /
     envVars:
       - key: NODE_ENV
         value: production
       - key: SUPABASE_URL
-        sync: false
+        value: https://sfiunuaouccyuagyetvr.supabase.co
       - key: SUPABASE_SERVICE_KEY
         sync: false
       - key: JWT_SECRET
-        generateValue: true
+        value: portfolio_jwt_secret_2024
       - key: ADMIN_USERNAME
         value: seble
       - key: ADMIN_PASSWORD
-        generateValue: true
+        value: Seble2024
