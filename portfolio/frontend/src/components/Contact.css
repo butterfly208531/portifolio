@@ -27,7 +27,7 @@
   color: var(--text);
   font-size: 0.95rem;
   outline: none;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 300;
   transition: border-color 0.2s;
   margin-bottom: 1.5rem;

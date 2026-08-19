@@ -44,7 +44,7 @@
 }
 
 .service-card h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 1.15rem;
   font-weight: 400;
   color: var(--text);
@@ -61,7 +61,7 @@
   position: absolute;
   bottom: 1.5rem;
   right: 1.5rem;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 2.5rem;
   color: var(--border);
   font-style: italic;

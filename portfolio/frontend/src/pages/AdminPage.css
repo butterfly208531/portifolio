@@ -25,7 +25,7 @@
 }
 
 .admin-gate-box h1 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 2rem;
   font-weight: 400;
   margin-bottom: 0.8rem;
@@ -58,7 +58,7 @@
 }
 
 .admin-logo {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 1.3rem;
   color: var(--text);
   padding: 0 1.5rem 2rem;
@@ -85,7 +85,7 @@
   color: var(--text-muted);
   cursor: pointer;
   font-size: 0.85rem;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Inter', sans-serif;
   letter-spacing: 0.5px;
   text-align: left;
   transition: color 0.2s, background 0.2s;
@@ -135,7 +135,7 @@
   color: var(--text-muted);
   cursor: pointer;
   font-size: 0.78rem;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Inter', sans-serif;
   letter-spacing: 1px;
   display: flex;
   align-items: center;
@@ -164,7 +164,7 @@
 }
 
 .admin-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 1.8rem;
   font-weight: 400;
   text-transform: capitalize;
@@ -188,7 +188,7 @@
 }
 
 .admin-card h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 1.1rem;
   font-weight: 400;
   margin-bottom: 1.5rem;
@@ -229,7 +229,7 @@
   color: var(--text);
   font-size: 0.9rem;
   outline: none;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Inter', sans-serif;
   transition: border-color 0.2s;
   width: 100%;
 }

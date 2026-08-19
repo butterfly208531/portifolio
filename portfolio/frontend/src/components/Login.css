@@ -41,7 +41,7 @@
 }
 
 .login-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 1.8rem;
   font-weight: 400;
   margin-bottom: 2rem;
@@ -61,7 +61,7 @@
   color: var(--text);
   font-size: 0.95rem;
   outline: none;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Inter', sans-serif;
   margin-bottom: 1.5rem;
   transition: border-color 0.2s;
 }
