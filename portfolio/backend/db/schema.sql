@@ -21,6 +21,7 @@ create table if not exists public.projects (
   github_url text,
   live_url text,
   image text,
+  "order" integer not null default 0,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -75,6 +76,18 @@ create table if not exists public.experiences (
   updated_at timestamptz not null default now()
 );
 
+-- ============ SERVICES ============
+create table if not exists public.services (
+  id uuid primary key default gen_random_uuid(),
+  icon text not null default 'fa-code',
+  title text not null,
+  description text not null default '',
+  details text not null default '',
+  "order" integer not null default 0,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
 -- ============ SEED DEFAULT ROWS ============
 insert into public.profiles (id) values (gen_random_uuid()) on conflict do nothing;
 
@@ -87,3 +100,4 @@ alter table public.messages enable row level security;
 alter table public.profiles enable row level security;
 alter table public.visitors enable row level security;
 alter table public.experiences enable row level security;
+alter table public.services enable row level security;

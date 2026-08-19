@@ -297,6 +297,27 @@
   border-color: #c0614a;
 }
 
+.admin-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.admin-order-input {
+  width: 60px;
+  padding: 0.35rem 0.5rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.admin-order-input:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
 /* Messages list */
 .admin-messages-list {
   display: flex;

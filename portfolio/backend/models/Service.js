@@ -1,12 +1,10 @@
 const { supabase, mapRow } = require('../db/supabase');
 
 const FIELD_MAP = {
+  icon: 'icon',
   title: 'title',
   description: 'description',
-  technologies: 'technologies',
-  githubUrl: 'github_url',
-  liveUrl: 'live_url',
-  image: 'image',
+  details: 'details',
   order: 'order',
 };
 
@@ -20,7 +18,7 @@ function toInsert(body) {
 
 async function list() {
   const { data, error } = await supabase
-    .from('projects')
+    .from('services')
     .select('*')
     .order('order', { ascending: true })
     .order('created_at', { ascending: false });
@@ -30,7 +28,7 @@ async function list() {
 
 async function create(body) {
   const { data, error } = await supabase
-    .from('projects')
+    .from('services')
     .insert(toInsert(body))
     .select()
     .single();
@@ -40,7 +38,7 @@ async function create(body) {
 
 async function updateOrder(id, order) {
   const { data, error } = await supabase
-    .from('projects')
+    .from('services')
     .update({ order, updated_at: new Date().toISOString() })
     .eq('id', id)
     .select()
@@ -50,7 +48,7 @@ async function updateOrder(id, order) {
 }
 
 async function deleteById(id) {
-  const { error } = await supabase.from('projects').delete().eq('id', id);
+  const { error } = await supabase.from('services').delete().eq('id', id);
   if (error) throw error;
 }
 

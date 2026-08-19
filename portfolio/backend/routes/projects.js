@@ -33,4 +33,14 @@ router.delete('/:id', authMiddleware, adminOnly, async (req, res) => {
   }
 });
 
+// PUT update order — admin only
+router.put('/:id/order', authMiddleware, adminOnly, async (req, res) => {
+  try {
+    const updated = await Project.updateOrder(req.params.id, req.body.order);
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update order' });
+  }
+});
+
 module.exports = router;

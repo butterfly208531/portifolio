@@ -1,10 +1,19 @@
 import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import useReveal from '../hooks/useReveal'
 import { SERVICES } from '../data'
+import api from '../api'
 import './Services.css'
 
 function Services() {
+  const [services, setServices] = useState([])
   const sectionRef = useReveal()
+
+  useEffect(() => {
+    api.get('/api/services')
+      .then(r => setServices(r.data.length ? r.data : SERVICES))
+      .catch(() => setServices(SERVICES))
+  }, [])
 
   return (
     <section id="services" className="services">
@@ -13,8 +22,8 @@ function Services() {
         <h2 className="section-title">Services</h2>
         <div className="section-line" />
         <div className="services-grid">
-          {SERVICES.slice(0, 3).map((s, i) => (
-            <div key={i} className="service-card" style={{animationDelay: `${i * 0.06}s`}}>
+          {services.slice(0, 3).map((s, i) => (
+            <div key={s._id || i} className="service-card" style={{animationDelay: `${i * 0.06}s`}}>
               <div className="service-icon">
                 <i className={`fa ${s.icon}`} />
               </div>

@@ -11,23 +11,23 @@ function AdminPage() {
   const [showLogin, setShowLogin] = useState(false)
   const [tab, setTab] = useState('projects')
 
-  // Profile state
   const [profile, setProfile] = useState(null)
   const [profileForm, setProfileForm] = useState({})
   const [profileSaving, setProfileSaving] = useState(false)
   const [profileMsg, setProfileMsg] = useState('')
 
-  // Projects state
   const [projects, setProjects] = useState([])
-  const [newProject, setNewProject] = useState({ title: '', description: '', technologies: '', githubUrl: '', liveUrl: '' })
+  const [newProject, setNewProject] = useState({ title: '', description: '', technologies: '', githubUrl: '', liveUrl: '', order: 0 })
   const [projectMsg, setProjectMsg] = useState('')
 
-  // Experience state
   const [experiences, setExperiences] = useState([])
   const [newExp, setNewExp] = useState({ title: '', company: '', duration: '', type: 'Full-time', achievements: '' })
   const [expMsg, setExpMsg] = useState('')
 
-  // Messages state
+  const [services, setServices] = useState([])
+  const [newService, setNewService] = useState({ icon: 'fa-code', title: '', description: '', details: '', order: 0 })
+  const [serviceMsg, setServiceMsg] = useState('')
+
   const [messages, setMessages] = useState([])
 
   useEffect(() => {
@@ -36,6 +36,7 @@ function AdminPage() {
     fetchProjects()
     fetchMessages()
     fetchExperiences()
+    fetchServices()
   }, [isAdmin])
 
   const fetchProfile = () => {
@@ -77,6 +78,10 @@ function AdminPage() {
 
   const fetchExperiences = () => {
     api.get('/api/experience').then(r => setExperiences(r.data)).catch(() => {})
+  }
+
+  const fetchServices = () => {
+    api.get('/api/services').then(r => setServices(r.data)).catch(() => {})
   }
 
   const addExperience = async (e) => {
@@ -122,7 +127,7 @@ function AdminPage() {
         { ...newProject, technologies: newProject.technologies.split(',').map(s => s.trim()).filter(Boolean) },
         { headers: { Authorization: `Bearer ${auth?.token}` } }
       )
-      setNewProject({ title: '', description: '', technologies: '', githubUrl: '', liveUrl: '' })
+      setNewProject({ title: '', description: '', technologies: '', githubUrl: '', liveUrl: '', order: 0 })
       setProjectMsg('Project added!')
       setTimeout(() => setProjectMsg(''), 2000)
       fetchProjects()
@@ -135,6 +140,41 @@ function AdminPage() {
       headers: { Authorization: `Bearer ${auth?.token}` }
     })
     fetchProjects()
+  }
+
+  const updateProjectOrder = async (id, order) => {
+    await api.put(`/api/projects/${id}/order`, { order }, {
+      headers: { Authorization: `Bearer ${auth?.token}` }
+    })
+    fetchProjects()
+  }
+
+  const addService = async (e) => {
+    e.preventDefault()
+    try {
+      await api.post('/api/services', newService, {
+        headers: { Authorization: `Bearer ${auth?.token}` }
+      })
+      setNewService({ icon: 'fa-code', title: '', description: '', details: '', order: 0 })
+      setServiceMsg('Service added!')
+      setTimeout(() => setServiceMsg(''), 2000)
+      fetchServices()
+    } catch { setServiceMsg('Error adding service') }
+  }
+
+  const deleteService = async (id) => {
+    if (!window.confirm('Delete this service?')) return
+    await api.delete(`/api/services/${id}`, {
+      headers: { Authorization: `Bearer ${auth?.token}` }
+    })
+    fetchServices()
+  }
+
+  const updateServiceOrder = async (id, order) => {
+    await api.put(`/api/services/${id}/order`, { order }, {
+      headers: { Authorization: `Bearer ${auth?.token}` }
+    })
+    fetchServices()
   }
 
   if (!isAdmin) {
@@ -156,9 +196,9 @@ function AdminPage() {
       <aside className="admin-sidebar">
         <div className="admin-logo">SM Admin</div>
         <nav className="admin-nav">
-          {['projects', 'experience', 'profile', 'messages'].map(t => (
+          {['projects', 'services', 'experience', 'profile', 'messages'].map(t => (
             <button key={t} className={`admin-nav-item${tab === t ? ' active' : ''}`} onClick={() => setTab(t)}>
-              <i className={`fa ${t === 'projects' ? 'fa-code' : t === 'experience' ? 'fa-briefcase' : t === 'profile' ? 'fa-user' : 'fa-envelope'}`} />
+              <i className={`fa ${t === 'projects' ? 'fa-code' : t === 'services' ? 'fa-cogs' : t === 'experience' ? 'fa-briefcase' : t === 'profile' ? 'fa-user' : 'fa-envelope'}`} />
               {t.charAt(0).toUpperCase() + t.slice(1)}
             </button>
           ))}
@@ -176,9 +216,9 @@ function AdminPage() {
       <main className="admin-main">
         <div className="admin-header">
           <h2 className="admin-title">
-            {tab === 'projects' ? 'Projects' : tab === 'experience' ? 'Experience' : tab === 'profile' ? 'Profile' : 'Messages'}
+            {tab === 'projects' ? 'Projects' : tab === 'services' ? 'Services' : tab === 'experience' ? 'Experience' : tab === 'profile' ? 'Profile' : 'Messages'}
           </h2>
-          <span className="admin-user">👋 {auth?.username}</span>
+          <span className="admin-user">{auth?.username}</span>
         </div>
 
         {/* PROJECTS TAB */}
@@ -196,6 +236,9 @@ function AdminPage() {
                   <input placeholder="GitHub URL" value={newProject.githubUrl} onChange={e => setNewProject({...newProject, githubUrl: e.target.value})} />
                   <input placeholder="Live URL" value={newProject.liveUrl} onChange={e => setNewProject({...newProject, liveUrl: e.target.value})} />
                 </div>
+                <div className="admin-form-row">
+                  <input type="number" placeholder="Priority (0 = first)" min="0" value={newProject.order} onChange={e => setNewProject({...newProject, order: Number(e.target.value)})} />
+                </div>
                 <div className="admin-form-actions">
                   <button type="submit" className="btn btn-primary">Add Project</button>
                   {projectMsg && <span className="admin-msg">{projectMsg}</span>}
@@ -212,12 +255,62 @@ function AdminPage() {
                       <p className="admin-project-title">{p.title}</p>
                       <p className="admin-project-tech">{p.technologies?.join(', ')}</p>
                     </div>
-                    <button className="admin-delete-btn" onClick={() => deleteProject(p._id)}>
-                      <i className="fa fa-trash" />
-                    </button>
+                    <div className="admin-item-actions">
+                      <input type="number" className="admin-order-input" min="0" value={p.order || 0}
+                        onChange={e => updateProjectOrder(p._id, Number(e.target.value))} title="Priority" />
+                      <button className="admin-delete-btn" onClick={() => deleteProject(p._id)}>
+                        <i className="fa fa-trash" />
+                      </button>
+                    </div>
                   </div>
                 ))}
                 {projects.length === 0 && <p className="admin-empty">No projects yet.</p>}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* SERVICES TAB */}
+        {tab === 'services' && (
+          <div className="admin-content">
+            <div className="admin-card">
+              <h3>Add New Service</h3>
+              <form className="admin-form" onSubmit={addService}>
+                <div className="admin-form-row">
+                  <input placeholder="Title" value={newService.title} onChange={e => setNewService({...newService, title: e.target.value})} required />
+                  <input placeholder="Icon (e.g. fa-code, fa-mobile-alt)" value={newService.icon} onChange={e => setNewService({...newService, icon: e.target.value})} />
+                </div>
+                <textarea placeholder="Short description" rows="2" value={newService.description} onChange={e => setNewService({...newService, description: e.target.value})} required />
+                <textarea placeholder="Details (optional)" rows="2" value={newService.details} onChange={e => setNewService({...newService, details: e.target.value})} />
+                <div className="admin-form-row">
+                  <input type="number" placeholder="Priority (0 = first)" min="0" value={newService.order} onChange={e => setNewService({...newService, order: Number(e.target.value)})} />
+                </div>
+                <div className="admin-form-actions">
+                  <button type="submit" className="btn btn-primary">Add Service</button>
+                  {serviceMsg && <span className="admin-msg">{serviceMsg}</span>}
+                </div>
+              </form>
+            </div>
+
+            <div className="admin-card">
+              <h3>All Services ({services.length})</h3>
+              <div className="admin-projects-list">
+                {services.map(s => (
+                  <div key={s._id} className="admin-project-item">
+                    <div>
+                      <p className="admin-project-title">{s.title}</p>
+                      <p className="admin-project-tech"><i className={`fa ${s.icon}`} /> {s.description?.substring(0, 60)}...</p>
+                    </div>
+                    <div className="admin-item-actions">
+                      <input type="number" className="admin-order-input" min="0" value={s.order || 0}
+                        onChange={e => updateServiceOrder(s._id, Number(e.target.value))} title="Priority" />
+                      <button className="admin-delete-btn" onClick={() => deleteService(s._id)}>
+                        <i className="fa fa-trash" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+                {services.length === 0 && <p className="admin-empty">No services yet.</p>}
               </div>
             </div>
           </div>
