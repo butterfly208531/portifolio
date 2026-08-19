@@ -1,0 +1,78 @@
+.page-header {
+  padding-top: 120px;
+  padding-bottom: 40px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.page-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.4rem, 5vw, 3.2rem);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.page-body {
+  padding: 60px 0 100px;
+  background: var(--bg);
+  min-height: 50vh;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--accent);
+  font-size: 0.78rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.back-link:hover {
+  color: var(--text);
+  transform: translateX(-4px);
+}
+
+.back-link i {
+  transition: transform 0.3s;
+}
+
+.back-link:hover i {
+  transform: translateX(-4px);
+}
+
+.section-cta {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.section-cta .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.section-cta .btn i {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.section-cta .btn:hover i {
+  transform: translateX(4px);
+}
+
+.service-detail {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  line-height: 1.8;
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--border);
+  opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+  .page-header { padding-top: 100px; }
+  .page-body { padding: 40px 0 60px; }
+}

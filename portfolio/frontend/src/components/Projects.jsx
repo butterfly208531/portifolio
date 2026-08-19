@@ -1,48 +1,9 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import useReveal from '../hooks/useReveal'
+import { DEMO_PROJECTS } from '../data'
 import api from '../api'
 import './Projects.css'
-
-const DEMO_PROJECTS = [
-  {
-    _id: 'demo1',
-    title: 'Portfolio Website',
-    description: 'A full-stack personal portfolio built with the MERN stack, featuring dark/light mode, visitor counter, and editable profile.',
-    technologies: ['React', 'Node.js', 'MongoDB', 'Express'],
-    githubUrl: 'https://github.com/butterfly208531/portifolio',
-    liveUrl: '#',
-  },
-  {
-    _id: 'demo2',
-    title: 'Project Two',
-    description: 'Add your project description here. Showcase what you built, the problem it solves, and the impact it had.',
-    technologies: ['React', 'Firebase', 'Tailwind'],
-    githubUrl: '#',
-    liveUrl: '#',
-  },
-  {
-    _id: 'demo3',
-    title: 'Project Three',
-    description: 'Another great project. Describe the tech stack, your role, and any interesting challenges you solved.',
-    technologies: ['Next.js', 'PostgreSQL', 'TypeScript'],
-    githubUrl: '#',
-    liveUrl: '#',
-  },
-]
-
-function ProjectSkeleton() {
-  return (
-    <div className="project-card">
-      <div className="skeleton" style={{ width: 60, height: 40, marginBottom: 16 }} />
-      <div className="skeleton" style={{ width: '70%', height: 20, marginBottom: 12 }} />
-      <div className="skeleton" style={{ width: '90%', height: 14, marginBottom: 8 }} />
-      <div className="skeleton" style={{ width: '80%', height: 14, marginBottom: 20 }} />
-      <div style={{ display: 'flex', gap: 8 }}>
-        {[1,2,3].map(i => <div key={i} className="skeleton" style={{ width: 60, height: 24 }} />)}
-      </div>
-    </div>
-  )
-}
 
 function Projects() {
   const [projects, setProjects] = useState([])
@@ -64,7 +25,17 @@ function Projects() {
         <div className="section-line" />
         <div className="projects-grid">
           {loading
-            ? [1, 2, 3].map(i => <ProjectSkeleton key={i} />)
+            ? [1, 2, 3].map(i => (
+              <div key={i} className="project-card">
+                <div className="skeleton" style={{ width: 60, height: 40, marginBottom: 16 }} />
+                <div className="skeleton" style={{ width: '70%', height: 20, marginBottom: 12 }} />
+                <div className="skeleton" style={{ width: '90%', height: 14, marginBottom: 8 }} />
+                <div className="skeleton" style={{ width: '80%', height: 14, marginBottom: 20 }} />
+                <div style={{ display: 'flex', gap: 8 }}>
+                  {[1,2,3].map(j => <div key={j} className="skeleton" style={{ width: 60, height: 24 }} />)}
+                </div>
+              </div>
+            ))
             : projects.map((project, i) => (
               <div key={project._id} className="project-card" style={{animationDelay: `${i * 0.1}s`}}>
                 <div className="project-number">0{i + 1}</div>
@@ -90,6 +61,9 @@ function Projects() {
               </div>
             ))
           }
+        </div>
+        <div className="section-cta">
+          <Link to="/projects" className="btn">View All Projects <i className="fa fa-arrow-right" /></Link>
         </div>
       </div>
     </section>
