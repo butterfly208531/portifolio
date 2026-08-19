@@ -7,7 +7,15 @@ const { authMiddleware, adminOnly } = require('../middleware/auth');
 router.get('/', async (req, res) => {
   try {
     const list = await Experience.list();
-    res.json(list);
+    const parsed = list.map(item => ({
+      ...item,
+      achievements: Array.isArray(item.achievements)
+        ? item.achievements
+        : typeof item.achievements === 'string'
+          ? item.achievements.split(/\.\s+/).filter(Boolean).map(s => s.endsWith('.') ? s : s + '.')
+          : []
+    }));
+    res.json(parsed);
   } catch { res.status(500).json({ error: 'Failed to fetch' }); }
 });
 
