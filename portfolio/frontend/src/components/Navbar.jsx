@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { useTheme } from '../context/ThemeContext'
 import './Navbar.css'
 
-const sections = ['about', 'projects', 'experience', 'services', 'contact']
+const sections = ['about', 'projects', 'services', 'contact']
 
 function Navbar() {
   const { theme, toggle } = useTheme()
   const [active, setActive] = useState('')
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const location = useLocation()
+  const isHome = location.pathname === '/'
 
   useEffect(() => {
     const onScroll = () => {
@@ -28,7 +31,7 @@ function Navbar() {
     <>
       <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
         <div className="container navbar-inner">
-          <a href="#" className="logo">SM</a>
+          <Link to="/" className="logo">SM</Link>
           <div className="nav-right">
             <ul className="nav-links">
               {sections.map((s) => (
@@ -38,6 +41,12 @@ function Navbar() {
                   </a>
                 </li>
               ))}
+              <li>
+                {isHome
+                  ? <a href="#experience" className={active === 'experience' ? 'active' : ''}>Experience</a>
+                  : <Link to="/experience">Experience</Link>
+                }
+              </li>
             </ul>
             <button className="theme-toggle" onClick={toggle} aria-label="Toggle theme">
               {theme === 'dark' ? (
@@ -67,6 +76,7 @@ function Navbar() {
             {s.charAt(0).toUpperCase() + s.slice(1)}
           </a>
         ))}
+        <Link to="/experience" onClick={() => setMenuOpen(false)}>Experience</Link>
       </div>
     </>
   )
