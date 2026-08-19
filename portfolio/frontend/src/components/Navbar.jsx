@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useTheme } from '../context/ThemeContext'
 import './Navbar.css'
 
@@ -10,8 +10,6 @@ function Navbar() {
   const [active, setActive] = useState('')
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const location = useLocation()
-  const isHome = location.pathname === '/'
 
   useEffect(() => {
     const onScroll = () => {
@@ -42,10 +40,7 @@ function Navbar() {
                 </li>
               ))}
               <li>
-                {isHome
-                  ? <a href="#experience" className={active === 'experience' ? 'active' : ''}>Experience</a>
-                  : <Link to="/experience">Experience</Link>
-                }
+                <Link to="/experience">Experience</Link>
               </li>
             </ul>
             <button className="theme-toggle" onClick={toggle} aria-label="Toggle theme">
