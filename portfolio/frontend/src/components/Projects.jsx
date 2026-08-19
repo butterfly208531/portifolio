@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import useReveal from '../hooks/useReveal'
 import api from '../api'
 import './Projects.css'
 
@@ -46,6 +47,7 @@ function ProjectSkeleton() {
 function Projects() {
   const [projects, setProjects] = useState([])
   const [loading, setLoading] = useState(true)
+  const sectionRef = useReveal()
 
   useEffect(() => {
     api.get('/api/projects')
@@ -56,7 +58,7 @@ function Projects() {
 
   return (
     <section id="projects" className="projects">
-      <div className="container">
+      <div className="container" ref={sectionRef} data-reveal="fade-up">
         <p className="section-subtitle">What I've built</p>
         <h2 className="section-title">Projects</h2>
         <div className="section-line" />
@@ -64,7 +66,7 @@ function Projects() {
           {loading
             ? [1, 2, 3].map(i => <ProjectSkeleton key={i} />)
             : projects.map((project, i) => (
-              <div key={project._id} className="project-card">
+              <div key={project._id} className="project-card" style={{animationDelay: `${i * 0.1}s`}}>
                 <div className="project-number">0{i + 1}</div>
                 <h3>{project.title}</h3>
                 <p>{project.description}</p>

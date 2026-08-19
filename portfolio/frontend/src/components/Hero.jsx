@@ -12,22 +12,22 @@ function Hero() {
     <section className="hero" id="hero">
       <div className="container hero-container">
         <div className="hero-text">
-          <p className="hero-greeting">
+          <p className="hero-greeting hero-anim hero-anim-1">
             <span className="hero-dot" /> Available for work
           </p>
-          <h1 className="hero-name">
+          <h1 className="hero-name hero-anim hero-anim-2">
             {firstName}<br /><em>{lastName}</em>
           </h1>
-          <p className="hero-title">{profile?.title || 'Full Stack Developer'}</p>
-          <div className="hero-divider" />
-          <p className="hero-desc">
+          <p className="hero-title hero-anim hero-anim-3">{profile?.title || 'Full Stack Developer'}</p>
+          <div className="hero-divider hero-anim hero-anim-4" />
+          <p className="hero-desc hero-anim hero-anim-4">
             {profile?.bio || 'I craft clean, purposeful web experiences using the MERN stack — turning ideas into fast, accessible, and beautiful products.'}
           </p>
-          <div className="hero-cta">
+          <div className="hero-cta hero-anim hero-anim-5">
             <a href="#contact" className="btn btn-primary">Contact Me</a>
           </div>
         </div>
-        <div className="hero-photo">
+        <div className="hero-photo hero-anim hero-anim-1">
           <div className="photo-frame">
             {profile?.avatar
               ? <img src={profile.avatar} alt={profile.name} className="photo-img" />

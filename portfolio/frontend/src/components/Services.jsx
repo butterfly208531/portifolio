@@ -1,3 +1,4 @@
+import useReveal from '../hooks/useReveal'
 import './Services.css'
 
 const services = [
@@ -49,15 +50,17 @@ const services = [
 ]
 
 function Services() {
+  const sectionRef = useReveal()
+
   return (
     <section id="services" className="services">
-      <div className="container">
+      <div className="container" ref={sectionRef} data-reveal="fade-up">
         <p className="section-subtitle">What I offer</p>
         <h2 className="section-title">Services</h2>
         <div className="section-line" />
         <div className="services-grid">
           {services.map((s, i) => (
-            <div key={i} className="service-card">
+            <div key={i} className="service-card" style={{animationDelay: `${i * 0.06}s`}}>
               <div className="service-icon">
                 <i className={`fa ${s.icon}`} />
               </div>

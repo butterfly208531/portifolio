@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import useReveal from '../hooks/useReveal'
 import api from '../api'
 import './Experience.css'
 
@@ -88,6 +89,7 @@ const STUDENT_EXPERIENCE = [
 function Experience() {
   const [experiences, setExperiences] = useState([])
   const [loading, setLoading] = useState(true)
+  const sectionRef = useReveal()
 
   useEffect(() => {
     api.get('/api/experience')
@@ -98,7 +100,7 @@ function Experience() {
 
   return (
     <section id="experience" className="experience">
-      <div className="container">
+      <div className="container" ref={sectionRef} data-reveal="fade-up">
         <p className="section-subtitle">Where I've worked</p>
         <h2 className="section-title">Experience</h2>
         <div className="section-line" />
@@ -107,7 +109,7 @@ function Experience() {
         ) : (
           <div className="timeline">
             {experiences.map((exp, i) => (
-              <div key={exp._id} className="timeline-item">
+              <div key={exp._id} className="timeline-item" style={{animationDelay: `${i * 0.08}s`}}>
                 <div className="timeline-marker">
                   <div className="timeline-dot" />
                   {i < experiences.length - 1 && <div className="timeline-line" />}

@@ -1,10 +1,12 @@
 import { useState } from 'react'
+import useReveal from '../hooks/useReveal'
 import api from '../api'
 import './Contact.css'
 
 function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [status, setStatus] = useState('')
+  const sectionRef = useReveal()
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -24,7 +26,7 @@ function Contact() {
 
   return (
     <section id="contact" className="contact">
-      <div className="container">
+      <div className="container" ref={sectionRef} data-reveal="fade-up">
         <p className="section-subtitle">Get in touch</p>
         <h2 className="section-title">Contact Me</h2>
         <div className="section-line" />
