@@ -1,19 +1,17 @@
 .services {
-  background: var(--bg-alt);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  background: var(--bg);
 }
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 1px;
   border: 1px solid var(--border);
 }
 
 .service-card {
-  background: var(--bg-alt);
-  padding: 2.5rem 2rem;
+  background: var(--bg);
+  padding: 2.5rem;
   border-right: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   position: relative;
@@ -21,8 +19,22 @@
   transition: background 0.3s;
 }
 
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 2px;
+  height: 0;
+  background: var(--accent);
+  transition: height 0.4s;
+}
+
 .service-card:hover {
-  background: var(--bg-card);
+  background: var(--bg-alt);
+}
+
+.service-card:hover::before {
+  height: 100%;
 }
 
 .service-card:hover .service-icon {
@@ -58,17 +70,16 @@
 }
 
 .service-number {
-  position: absolute;
-  bottom: 1.5rem;
-  right: 1.5rem;
   font-family: 'Cormorant Garamond', serif;
   font-size: 2.5rem;
   color: var(--border);
   font-style: italic;
   line-height: 1;
+  margin-top: 1.5rem;
   pointer-events: none;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 480px) {
   .services-grid { grid-template-columns: 1fr; }
+  .service-card { padding: 1.5rem; }
 }
