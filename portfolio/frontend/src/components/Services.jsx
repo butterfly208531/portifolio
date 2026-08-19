@@ -13,7 +13,7 @@ function Services() {
         <h2 className="section-title">Services</h2>
         <div className="section-line" />
         <div className="services-grid">
-          {SERVICES.map((s, i) => (
+          {SERVICES.slice(0, 3).map((s, i) => (
             <div key={i} className="service-card" style={{animationDelay: `${i * 0.06}s`}}>
               <div className="service-icon">
                 <i className={`fa ${s.icon}`} />

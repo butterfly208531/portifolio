@@ -36,7 +36,7 @@ function Projects() {
                 </div>
               </div>
             ))
-            : projects.map((project, i) => (
+            : projects.slice(0, 3).map((project, i) => (
               <div key={project._id} className="project-card" style={{animationDelay: `${i * 0.1}s`}}>
                 <div className="project-number">0{i + 1}</div>
                 <h3>{project.title}</h3>
