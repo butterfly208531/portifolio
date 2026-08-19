@@ -1,0 +1,9 @@
+@import '../components/About.css';
+
+.page-body .about-content {
+  padding-top: 0;
+}
+
+.page-body .about-stats {
+  border-left: 1px solid var(--border);
+}

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useTheme } from '../context/ThemeContext'
 import './Navbar.css'
 
-const sections = ['about', 'projects', 'services', 'contact']
+const sections = ['projects', 'services', 'contact']
 
 function Navbar() {
   const { theme, toggle } = useTheme()
@@ -40,6 +40,9 @@ function Navbar() {
                 </li>
               ))}
               <li>
+                <Link to="/about">About</Link>
+              </li>
+              <li>
                 <Link to="/experience">Experience</Link>
               </li>
             </ul>
@@ -71,6 +74,7 @@ function Navbar() {
             {s.charAt(0).toUpperCase() + s.slice(1)}
           </a>
         ))}
+        <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
         <Link to="/experience" onClick={() => setMenuOpen(false)}>Experience</Link>
       </div>
     </>
