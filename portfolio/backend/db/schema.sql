@@ -41,11 +41,12 @@ create table if not exists public.profiles (
   name text not null default 'Seble Mengistu',
   title text not null default 'Full Stack Developer',
   bio text not null default 'I craft clean, purposeful web experiences using the MERN stack.',
-  skills text[] not null default '{"JavaScript","React","Node.js","Express","MongoDB","HTML & CSS"}',
+  skills text[] not null default '{"JavaScript","React","Node.js","Express","MongoDB","HTML & CSS","Git","REST APIs"}',
   github text not null default 'https://github.com',
   linkedin text not null default 'https://linkedin.com',
   email text not null default 'seblemen94@gmail.com',
   avatar text not null default '',
+  location text not null default 'Addis Ababa, Ethiopia',
   years_experience integer not null default 1,
   telegram text not null default '',
   instagram text not null default '',
@@ -61,6 +62,19 @@ create table if not exists public.visitors (
   updated_at timestamptz not null default now()
 );
 
+-- ============ EXPERIENCES ============
+create table if not exists public.experiences (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  company text not null default '',
+  duration text not null default '',
+  type text not null default 'Education',
+  achievements text not null default '',
+  "order" integer not null default 0,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
 -- ============ SEED DEFAULT ROWS ============
 insert into public.profiles (id) values (gen_random_uuid()) on conflict do nothing;
 
@@ -72,3 +86,4 @@ alter table public.projects enable row level security;
 alter table public.messages enable row level security;
 alter table public.profiles enable row level security;
 alter table public.visitors enable row level security;
+alter table public.experiences enable row level security;

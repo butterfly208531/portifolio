@@ -12,6 +12,7 @@ const FIELD_MAP = {
   yearsExperience: 'years_experience',
   telegram: 'telegram',
   instagram: 'instagram',
+  location: 'location',
 };
 
 function toUpdate(body) {

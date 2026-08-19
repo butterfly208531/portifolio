@@ -43,25 +43,6 @@
   transform: translateX(-4px);
 }
 
-.section-cta {
-  margin-top: 3rem;
-  text-align: center;
-}
-
-.section-cta .btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.section-cta .btn i {
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.section-cta .btn:hover i {
-  transform: translateX(4px);
-}
-
 .service-detail {
   color: var(--text-muted);
   font-size: 0.82rem;
