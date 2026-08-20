@@ -230,6 +230,9 @@ function AdminPage() {
             </button>
           ))}
         </nav>
+        <button className="admin-nav-item" onClick={() => navigate('/views')} style={{ width: '100%', textAlign: 'left' }}>
+          <i className="fa fa-chart-bar" /> Views
+        </button>
         {viewStats && (
           <div className="sidebar-stats">
             <p className="sidebar-stats-title">Views</p>
