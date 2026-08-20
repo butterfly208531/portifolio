@@ -223,9 +223,9 @@ function AdminPage() {
       <aside className="admin-sidebar">
         <div className="admin-logo">SM Admin</div>
         <nav className="admin-nav">
-          {['projects', 'services', 'experience', 'profile', 'messages'].map(t => (
+          {['projects', 'services', 'experience', 'stats', 'profile', 'messages'].map(t => (
             <button key={t} className={`admin-nav-item${tab === t ? ' active' : ''}`} onClick={() => setTab(t)}>
-              <i className={`fa ${t === 'projects' ? 'fa-code' : t === 'services' ? 'fa-cogs' : t === 'experience' ? 'fa-briefcase' : t === 'profile' ? 'fa-user' : 'fa-envelope'}`} />
+              <i className={`fa ${t === 'projects' ? 'fa-code' : t === 'services' ? 'fa-cogs' : t === 'experience' ? 'fa-briefcase' : t === 'stats' ? 'fa-chart-bar' : t === 'profile' ? 'fa-user' : 'fa-envelope'}`} />
               {t.charAt(0).toUpperCase() + t.slice(1)}
             </button>
           ))}
@@ -243,7 +243,7 @@ function AdminPage() {
       <main className="admin-main">
         <div className="admin-header">
           <h2 className="admin-title">
-            {tab === 'projects' ? 'Projects' : tab === 'services' ? 'Services' : tab === 'experience' ? 'Experience' : tab === 'profile' ? 'Profile' : 'Messages'}
+            {tab === 'projects' ? 'Projects' : tab === 'services' ? 'Services' : tab === 'experience' ? 'Experience' : tab === 'stats' ? 'View Stats' : tab === 'profile' ? 'Profile' : 'Messages'}
           </h2>
           <span className="admin-user">{auth?.username}</span>
         </div>
@@ -469,30 +469,6 @@ function AdminPage() {
                     {visitorMsg && <span className="admin-msg">{visitorMsg}</span>}
                   </div>
                 </div>
-                {viewStats && (
-                  <div className="admin-stats-grid">
-                    <div className="admin-stat-card">
-                      <span className="admin-stat-number">{viewStats.today}</span>
-                      <span className="admin-stat-label">Today</span>
-                    </div>
-                    <div className="admin-stat-card">
-                      <span className="admin-stat-number">{viewStats.thisWeek}</span>
-                      <span className="admin-stat-label">This Week</span>
-                    </div>
-                    <div className="admin-stat-card">
-                      <span className="admin-stat-number">{viewStats.thisMonth}</span>
-                      <span className="admin-stat-label">This Month</span>
-                    </div>
-                    <div className="admin-stat-card">
-                      <span className="admin-stat-number">{viewStats.thisYear}</span>
-                      <span className="admin-stat-label">This Year</span>
-                    </div>
-                    <div className="admin-stat-card">
-                      <span className="admin-stat-number">{viewStats.total}</span>
-                      <span className="admin-stat-label">Total Views</span>
-                    </div>
-                  </div>
-                )}
                 <div className="admin-form-actions">
                   <button type="submit" className="btn btn-primary" disabled={profileSaving}>
                     {profileSaving ? 'Saving...' : 'Save Changes'}
@@ -500,6 +476,41 @@ function AdminPage() {
                   {profileMsg && <span className="admin-msg">{profileMsg}</span>}
                 </div>
               </form>
+            </div>
+          </div>
+        )}
+
+        {/* STATS TAB */}
+        {tab === 'stats' && (
+          <div className="admin-content">
+            <div className="admin-card">
+              <h3>View Statistics</h3>
+              {viewStats ? (
+                <div className="admin-stats-grid">
+                  <div className="admin-stat-card">
+                    <span className="admin-stat-number">{viewStats.today}</span>
+                    <span className="admin-stat-label">Today</span>
+                  </div>
+                  <div className="admin-stat-card">
+                    <span className="admin-stat-number">{viewStats.thisWeek}</span>
+                    <span className="admin-stat-label">This Week</span>
+                  </div>
+                  <div className="admin-stat-card">
+                    <span className="admin-stat-number">{viewStats.thisMonth}</span>
+                    <span className="admin-stat-label">This Month</span>
+                  </div>
+                  <div className="admin-stat-card">
+                    <span className="admin-stat-number">{viewStats.thisYear}</span>
+                    <span className="admin-stat-label">This Year</span>
+                  </div>
+                  <div className="admin-stat-card">
+                    <span className="admin-stat-number">{viewStats.total}</span>
+                    <span className="admin-stat-label">Total Views</span>
+                  </div>
+                </div>
+              ) : (
+                <p className="admin-empty">Loading stats...</p>
+              )}
             </div>
           </div>
         )}
