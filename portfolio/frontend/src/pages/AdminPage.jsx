@@ -28,6 +28,10 @@ function AdminPage() {
   const [newService, setNewService] = useState({ icon: 'fa-code', title: '', description: '', details: '', order: 0 })
   const [serviceMsg, setServiceMsg] = useState('')
 
+  // Visitor state
+  const [visitorCount, setVisitorCount] = useState(0)
+  const [visitorMsg, setVisitorMsg] = useState('')
+
   const [messages, setMessages] = useState([])
 
   useEffect(() => {
@@ -37,6 +41,7 @@ function AdminPage() {
     fetchMessages()
     fetchExperiences()
     fetchServices()
+    fetchVisitors()
   }, [isAdmin])
 
   const fetchProfile = () => {
@@ -82,6 +87,20 @@ function AdminPage() {
 
   const fetchServices = () => {
     api.get('/api/services').then(r => setServices(r.data)).catch(() => {})
+  }
+
+  const fetchVisitors = () => {
+    api.get('/api/visitors').then(r => setVisitorCount(r.data.count || 0)).catch(() => {})
+  }
+
+  const saveVisitorCount = async () => {
+    try {
+      await api.put('/api/visitors', { count: visitorCount }, {
+        headers: { Authorization: `Bearer ${auth?.token}` }
+      })
+      setVisitorMsg('Saved!')
+      setTimeout(() => setVisitorMsg(''), 2000)
+    } catch { setVisitorMsg('Error saving') }
   }
 
   const addExperience = async (e) => {
@@ -433,6 +452,14 @@ function AdminPage() {
                 <div className="admin-field">
                   <label>Years of Experience</label>
                   <input type="number" min="0" value={profileForm.yearsExperience ?? 1} onChange={e => setProfileForm({...profileForm, yearsExperience: Number(e.target.value)})} />
+                </div>
+                <div className="admin-field">
+                  <label>Visitor Count</label>
+                  <div className="admin-form-row">
+                    <input type="number" min="0" value={visitorCount} onChange={e => setVisitorCount(Number(e.target.value))} />
+                    <button type="button" className="btn btn-primary" onClick={saveVisitorCount}>Update Count</button>
+                    {visitorMsg && <span className="admin-msg">{visitorMsg}</span>}
+                  </div>
                 </div>
                 <div className="admin-form-actions">
                   <button type="submit" className="btn btn-primary" disabled={profileSaving}>

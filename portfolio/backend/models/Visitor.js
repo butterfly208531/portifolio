@@ -19,12 +19,11 @@ async function getOrCreate() {
   return data;
 }
 
-async function increment() {
+async function setCount(count) {
   const visitor = await getOrCreate();
-  const next = visitor.count + 1;
   const { data, error } = await supabase
     .from('visitors')
-    .update({ count: next, updated_at: new Date().toISOString() })
+    .update({ count, updated_at: new Date().toISOString() })
     .eq('id', visitor.id)
     .select()
     .single();
@@ -32,4 +31,4 @@ async function increment() {
   return data.count;
 }
 
-module.exports = { getOrCreate, increment };
+module.exports = { getOrCreate, setCount };
