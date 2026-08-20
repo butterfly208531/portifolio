@@ -2,10 +2,10 @@
 
 :root,
 [data-theme='dark'] {
-  --bg: #0a0a0a; --bg-alt: #111111; --bg-card: #161616;
-  --accent: #8a817c; --accent-light: #c4bdb9; --accent-vivid: #a89f9a;
-  --text: #f0ece8; --text-muted: #7a7370;
-  --border: #2a2520; --border-light: #3a3530;
+  --bg: #141414; --bg-alt: #1c1c1c; --bg-card: #212121;
+  --accent: #b0a396; --accent-light: #d6cfca; --accent-vivid: #c4b9ae;
+  --text: #f5f1ee; --text-muted: #a09890;
+  --border: #333028; --border-light: #443f38;
 }
 
 [data-theme='light'] {
