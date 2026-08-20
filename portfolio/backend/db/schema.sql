@@ -101,3 +101,12 @@ alter table public.profiles enable row level security;
 alter table public.visitors enable row level security;
 alter table public.experiences enable row level security;
 alter table public.services enable row level security;
+
+-- ============ VIEWS ============
+create table if not exists public.views (
+  id uuid primary key default gen_random_uuid(),
+  visitor_id text not null default '',
+  created_at timestamptz not null default now()
+);
+
+alter table public.views enable row level security;

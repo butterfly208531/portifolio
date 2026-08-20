@@ -9,6 +9,13 @@ function VisitorCounter() {
     api.get('/api/visitors')
       .then((res) => setCount(res.data.count))
       .catch(() => {})
+
+    if (!sessionStorage.getItem('viewed')) {
+      const visitorId = sessionStorage.getItem('visitorId') || crypto.randomUUID()
+      sessionStorage.setItem('visitorId', visitorId)
+      sessionStorage.setItem('viewed', 'true')
+      api.post('/api/views', { visitorId }).catch(() => {})
+    }
   }, [])
 
   if (count === null) return null

@@ -31,6 +31,7 @@ function AdminPage() {
   // Visitor state
   const [visitorCount, setVisitorCount] = useState(0)
   const [visitorMsg, setVisitorMsg] = useState('')
+  const [viewStats, setViewStats] = useState(null)
 
   const [messages, setMessages] = useState([])
 
@@ -42,6 +43,7 @@ function AdminPage() {
     fetchExperiences()
     fetchServices()
     fetchVisitors()
+    fetchViewStats()
   }, [isAdmin])
 
   const fetchProfile = () => {
@@ -101,6 +103,12 @@ function AdminPage() {
       setVisitorMsg('Saved!')
       setTimeout(() => setVisitorMsg(''), 2000)
     } catch { setVisitorMsg('Error saving') }
+  }
+
+  const fetchViewStats = () => {
+    api.get('/api/views/stats', {
+      headers: { Authorization: `Bearer ${auth?.token}` }
+    }).then(r => setViewStats(r.data)).catch(() => {})
   }
 
   const addExperience = async (e) => {
@@ -461,6 +469,30 @@ function AdminPage() {
                     {visitorMsg && <span className="admin-msg">{visitorMsg}</span>}
                   </div>
                 </div>
+                {viewStats && (
+                  <div className="admin-stats-grid">
+                    <div className="admin-stat-card">
+                      <span className="admin-stat-number">{viewStats.today}</span>
+                      <span className="admin-stat-label">Today</span>
+                    </div>
+                    <div className="admin-stat-card">
+                      <span className="admin-stat-number">{viewStats.thisWeek}</span>
+                      <span className="admin-stat-label">This Week</span>
+                    </div>
+                    <div className="admin-stat-card">
+                      <span className="admin-stat-number">{viewStats.thisMonth}</span>
+                      <span className="admin-stat-label">This Month</span>
+                    </div>
+                    <div className="admin-stat-card">
+                      <span className="admin-stat-number">{viewStats.thisYear}</span>
+                      <span className="admin-stat-label">This Year</span>
+                    </div>
+                    <div className="admin-stat-card">
+                      <span className="admin-stat-number">{viewStats.total}</span>
+                      <span className="admin-stat-label">Total Views</span>
+                    </div>
+                  </div>
+                )}
                 <div className="admin-form-actions">
                   <button type="submit" className="btn btn-primary" disabled={profileSaving}>
                     {profileSaving ? 'Saving...' : 'Save Changes'}
