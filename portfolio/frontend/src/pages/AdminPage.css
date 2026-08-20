@@ -25,7 +25,7 @@
 }
 
 .admin-gate-box h1 {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Playfair Display', serif;
   font-size: 2rem;
   font-weight: 400;
   margin-bottom: 0.8rem;
@@ -58,7 +58,7 @@
 }
 
 .admin-logo {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Playfair Display', serif;
   font-size: 1.3rem;
   color: var(--text);
   padding: 0 1.5rem 2rem;
@@ -139,7 +139,7 @@
 
 .sidebar-stat span {
   color: var(--text);
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Playfair Display', serif;
   font-size: 1rem;
   font-weight: 500;
 }
@@ -206,7 +206,7 @@
 }
 
 .admin-title {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Playfair Display', serif;
   font-size: 1.8rem;
   font-weight: 400;
   text-transform: capitalize;
@@ -230,7 +230,7 @@
 }
 
 .admin-card h3 {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Playfair Display', serif;
   font-size: 1.1rem;
   font-weight: 400;
   margin-bottom: 1.5rem;
@@ -378,7 +378,7 @@
 }
 
 .admin-stat-number {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Playfair Display', serif;
   font-size: 1.8rem;
   color: var(--text);
   font-weight: 500;
