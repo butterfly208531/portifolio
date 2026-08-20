@@ -11,7 +11,7 @@ function Projects() {
   const sectionRef = useReveal()
 
   useEffect(() => {
-    api.get('/api/projects')
+    api.get('/api/github/repos')
       .then((res) => setProjects(res.data.length ? res.data : DEMO_PROJECTS))
       .catch(() => setProjects(DEMO_PROJECTS))
       .finally(() => setLoading(false))
