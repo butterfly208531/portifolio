@@ -5,6 +5,9 @@ const GITHUB_USERNAME = 'butterfly208531';
 
 router.get('/repos', async (req, res) => {
   try {
+    res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.set('Pragma', 'no-cache');
+    res.set('Expires', '0');
     const response = await fetch(
       `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=30`,
       { headers: { 'Accept': 'application/vnd.github.v3+json' } }
