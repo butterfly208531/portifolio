@@ -109,46 +109,55 @@
 }
 
 .sidebar-stats {
-  padding: 1rem 1.2rem;
+  padding: 1rem 0;
   border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
 }
 
 .sidebar-stats-title {
-  color: var(--text-muted);
-  font-size: 0.65rem;
+  color: var(--accent-light);
+  font-size: 0.6rem;
   letter-spacing: 2px;
   text-transform: uppercase;
-  margin-bottom: 0.6rem;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
 }
 
 .sidebar-stats-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
 }
 
 .sidebar-stat {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.1rem;
 }
 
 .sidebar-stat span {
   color: var(--text);
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 500;
 }
 
 .sidebar-stat label {
   color: var(--text-muted);
-  font-size: 0.6rem;
+  font-size: 0.5rem;
   letter-spacing: 1px;
   text-transform: uppercase;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
 }
 
 .sidebar-stats-grid .sidebar-stat:last-child {
-  grid-column: span 2;
+  grid-column: unset;
 }
 
 .admin-sidebar-footer {
