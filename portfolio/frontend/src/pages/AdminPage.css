@@ -105,8 +105,50 @@
 
 .admin-nav-item.active {
   color: var(--text);
-  background: var(--bg-card);
-  border-left: 2px solid var(--accent);
+  border-left-color: var(--accent);
+}
+
+.sidebar-stats {
+  padding: 1rem 1.2rem;
+  border-top: 1px solid var(--border);
+}
+
+.sidebar-stats-title {
+  color: var(--text-muted);
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+.sidebar-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.sidebar-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.sidebar-stat span {
+  color: var(--text);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.sidebar-stat label {
+  color: var(--text-muted);
+  font-size: 0.6rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.sidebar-stats-grid .sidebar-stat:last-child {
+  grid-column: span 2;
 }
 
 .admin-sidebar-footer {

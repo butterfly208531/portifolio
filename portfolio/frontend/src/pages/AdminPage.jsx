@@ -223,13 +223,25 @@ function AdminPage() {
       <aside className="admin-sidebar">
         <div className="admin-logo">SM Admin</div>
         <nav className="admin-nav">
-          {['projects', 'services', 'experience', 'stats', 'profile', 'messages'].map(t => (
+          {['projects', 'services', 'experience', 'profile', 'messages'].map(t => (
             <button key={t} className={`admin-nav-item${tab === t ? ' active' : ''}`} onClick={() => setTab(t)}>
-              <i className={`fa ${t === 'projects' ? 'fa-code' : t === 'services' ? 'fa-cogs' : t === 'experience' ? 'fa-briefcase' : t === 'stats' ? 'fa-chart-bar' : t === 'profile' ? 'fa-user' : 'fa-envelope'}`} />
+              <i className={`fa ${t === 'projects' ? 'fa-code' : t === 'services' ? 'fa-cogs' : t === 'experience' ? 'fa-briefcase' : t === 'profile' ? 'fa-user' : 'fa-envelope'}`} />
               {t.charAt(0).toUpperCase() + t.slice(1)}
             </button>
           ))}
         </nav>
+        {viewStats && (
+          <div className="sidebar-stats">
+            <p className="sidebar-stats-title">Views</p>
+            <div className="sidebar-stats-grid">
+              <div className="sidebar-stat"><span>{viewStats.today}</span><label>Today</label></div>
+              <div className="sidebar-stat"><span>{viewStats.thisWeek}</span><label>Week</label></div>
+              <div className="sidebar-stat"><span>{viewStats.thisMonth}</span><label>Month</label></div>
+              <div className="sidebar-stat"><span>{viewStats.thisYear}</span><label>Year</label></div>
+              <div className="sidebar-stat"><span>{viewStats.total}</span><label>Total</label></div>
+            </div>
+          </div>
+        )}
         <div className="admin-sidebar-footer">
           <a href="/" className="admin-view-site" target="_blank" rel="noreferrer">
             <i className="fa fa-external-link-alt" /> View Site
