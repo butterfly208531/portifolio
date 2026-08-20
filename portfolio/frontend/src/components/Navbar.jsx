@@ -29,7 +29,7 @@ function Navbar() {
     <>
       <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
         <div className="container navbar-inner">
-          <Link to="/" className="logo">SM</Link>
+          <Link to="/" className="logo"><img src="/seble logo.png" alt="Seble" className="logo-img" /></Link>
           <div className="nav-right">
             <ul className="nav-links">
               {sections.map((s) => (
