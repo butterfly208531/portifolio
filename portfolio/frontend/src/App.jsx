@@ -11,7 +11,6 @@ import AboutPage from './pages/AboutPage'
 import ProjectsPage from './pages/ProjectsPage'
 import ExperiencePage from './pages/ExperiencePage'
 import ServicesPage from './pages/ServicesPage'
-import ViewsPage from './pages/ViewsPage'
 
 function App() {
   return (
@@ -22,7 +21,6 @@ function App() {
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/experience" element={<ExperiencePage />} />
         <Route path="/services" element={<ServicesPage />} />
-        <Route path="/views" element={<ViewsPage />} />
         <Route path="/*" element={
           <>
             <Navbar />
