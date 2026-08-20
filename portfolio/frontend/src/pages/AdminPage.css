@@ -114,7 +114,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.8rem;
+  gap: 0.6rem;
 }
 
 .sidebar-stats-title {
@@ -122,22 +122,19 @@
   font-size: 0.6rem;
   letter-spacing: 2px;
   text-transform: uppercase;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
 }
 
 .sidebar-stats-grid {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.8rem;
+  gap: 0.6rem;
 }
 
 .sidebar-stat {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0.1rem;
+  gap: 0.4rem;
 }
 
 .sidebar-stat span {
@@ -149,15 +146,9 @@
 
 .sidebar-stat label {
   color: var(--text-muted);
-  font-size: 0.5rem;
+  font-size: 0.55rem;
   letter-spacing: 1px;
   text-transform: uppercase;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-}
-
-.sidebar-stats-grid .sidebar-stat:last-child {
-  grid-column: unset;
 }
 
 .admin-sidebar-footer {
