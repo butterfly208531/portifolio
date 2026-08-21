@@ -262,8 +262,29 @@ function AdminPage() {
         {tab === 'projects' && (
           <div className="admin-content">
             <div className="admin-card">
+              <h3>Add New Project</h3>
+              <form className="admin-form" onSubmit={addProject}>
+                <div className="admin-form-row">
+                  <input placeholder="Title" value={newProject.title} onChange={e => setNewProject({...newProject, title: e.target.value})} required />
+                  <input placeholder="Technologies (comma separated)" value={newProject.technologies} onChange={e => setNewProject({...newProject, technologies: e.target.value})} />
+                </div>
+                <textarea placeholder="Description" rows="3" value={newProject.description} onChange={e => setNewProject({...newProject, description: e.target.value})} required />
+                <div className="admin-form-row">
+                  <input placeholder="GitHub URL" value={newProject.githubUrl} onChange={e => setNewProject({...newProject, githubUrl: e.target.value})} />
+                  <input placeholder="Live URL" value={newProject.liveUrl} onChange={e => setNewProject({...newProject, liveUrl: e.target.value})} />
+                </div>
+                <div className="admin-form-row">
+                  <input type="number" placeholder="Priority (0 = first)" min="0" value={newProject.order} onChange={e => setNewProject({...newProject, order: Number(e.target.value)})} />
+                </div>
+                <div className="admin-form-actions">
+                  <button type="submit" className="btn btn-primary">Add Project</button>
+                  {projectMsg && <span className="admin-msg">{projectMsg}</span>}
+                </div>
+              </form>
+            </div>
+
+            <div className="admin-card">
               <h3>GitHub Repos ({projects.length})</h3>
-              {projectMsg && <span className="admin-msg">{projectMsg}</span>}
               <div className="admin-projects-list">
                 {projects.map(p => (
                   <div key={p._id} className="admin-project-item" style={{ opacity: p.hidden ? 0.5 : 1 }}>
