@@ -287,21 +287,37 @@ function AdminPage() {
               <h3>GitHub Repos ({projects.length})</h3>
               <div className="admin-projects-list">
                 {projects.map(p => (
-                  <div key={p._id} className="admin-project-item" style={{ opacity: p.hidden ? 0.5 : 1 }}>
-                    <div>
-                      <p className="admin-project-title">{p.title}</p>
-                      <p className="admin-project-tech">{p.technologies?.join(', ')}</p>
-                      {p.description && <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: 4 }}>{p.description}</p>}
+                  <div key={p._id} className="admin-project-item" style={{ opacity: p.hidden ? 0.5 : 1, flexDirection: 'column', alignItems: 'stretch', gap: 8 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <div>
+                        <p className="admin-project-title">{p.title}</p>
+                        <p className="admin-project-tech">{p.technologies?.join(', ')}</p>
+                      </div>
+                      <div className="admin-item-actions">
+                        <a href={p.githubUrl} target="_blank" rel="noreferrer" className="admin-view-site" style={{ marginRight: 8 }}>
+                          <i className="fab fa-github" />
+                        </a>
+                        <button className={`btn ${p.hidden ? 'btn-primary' : 'btn-secondary'}`}
+                          onClick={() => toggleProjectHidden(p._id, p.hidden)}
+                          style={{ fontSize: '0.7rem', padding: '0.3rem 0.7rem' }}>
+                          {p.hidden ? <><i className="fa fa-eye" /> Show</> : <><i className="fa fa-eye-slash" /> Hide</>}
+                        </button>
+                      </div>
                     </div>
-                    <div className="admin-item-actions">
-                      <a href={p.githubUrl} target="_blank" rel="noreferrer" className="admin-view-site" style={{ marginRight: 8 }}>
-                        <i className="fab fa-github" />
-                      </a>
-                      <button className={`btn ${p.hidden ? 'btn-primary' : 'btn-secondary'}`}
-                        onClick={() => toggleProjectHidden(p._id, p.hidden)}
-                        style={{ fontSize: '0.7rem', padding: '0.3rem 0.7rem' }}>
-                        {p.hidden ? <><i className="fa fa-eye" /> Show</> : <><i className="fa fa-eye-slash" /> Hide</>}
-                      </button>
+                    <div style={{ display: 'flex', gap: 6 }}>
+                      <input
+                        defaultValue={p.description}
+                        onBlur={e => {
+                          if (e.target.value !== p.description) {
+                            api.put(`/api/github/repos/${p._id}`, { description: e.target.value }, {
+                              headers: { Authorization: `Bearer ${auth?.token}` }
+                            }).then(() => { fetchProjects(); setProjectMsg('Description updated') })
+                          }
+                        }}
+                        onKeyDown={e => { if (e.key === 'Enter') e.target.blur() }}
+                        style={{ flex: 1, fontSize: '0.75rem', padding: '0.4rem 0.6rem', background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: 4, color: 'var(--text)' }}
+                        placeholder="Edit description..."
+                      />
                     </div>
                   </div>
                 ))}
