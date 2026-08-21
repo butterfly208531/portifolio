@@ -3,14 +3,14 @@
 :root,
 [data-theme='dark'] {
   --bg: #141414; --bg-alt: #1c1c1c; --bg-card: #212121;
-  --accent: #b0a396; --accent-light: #d6cfca; --accent-vivid: #c4b9ae;
+  --accent: #c9a84c; --accent-light: #e0c878; --accent-vivid: #d4b85a;
   --text: #f5f1ee; --text-muted: #a09890;
   --border: #333028; --border-light: #443f38;
 }
 
 [data-theme='light'] {
-  --bg: #ffffff; --bg-alt: #f7f4f2; --bg-card: #f0ece8;
-  --accent: #6e4730; --accent-light: #7a5c4a; --accent-vivid: #8a5c40;
+  --bg: #ffffff; --bg-alt: #f7f3f0; --bg-card: #f0ece8;
+  --accent: #800020; --accent-light: #a00028; --accent-vivid: #900024;
   --text: #1a1010; --text-muted: #6b5c55;
   --border: #e0d8d2; --border-light: #d4c8c0;
 }
