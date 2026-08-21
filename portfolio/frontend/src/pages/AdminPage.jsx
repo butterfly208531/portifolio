@@ -74,7 +74,17 @@ function AdminPage() {
   }
 
   const fetchProjects = () => {
-    api.get('/api/projects').then(r => setProjects(r.data))
+    api.get('/api/github/repos/all', {
+      headers: { Authorization: `Bearer ${auth?.token}` }
+    }).then(r => setProjects(r.data)).catch(() => setProjects([]))
+  }
+
+  const toggleProjectHidden = (repoId, isHidden) => {
+    const url = `/api/github/repos/${repoId}/hide`
+    const method = isHidden ? 'DELETE' : 'POST'
+    api({ method, url, headers: { Authorization: `Bearer ${auth?.token}` } })
+      .then(() => { fetchProjects(); setProjectMsg(isHidden ? 'Repo visible' : 'Repo hidden') })
+      .catch(() => setProjectMsg('Failed'))
   }
 
   const fetchMessages = () => {
@@ -252,46 +262,29 @@ function AdminPage() {
         {tab === 'projects' && (
           <div className="admin-content">
             <div className="admin-card">
-              <h3>Add New Project</h3>
-              <form className="admin-form" onSubmit={addProject}>
-                <div className="admin-form-row">
-                  <input placeholder="Title" value={newProject.title} onChange={e => setNewProject({...newProject, title: e.target.value})} required />
-                  <input placeholder="Technologies (comma separated)" value={newProject.technologies} onChange={e => setNewProject({...newProject, technologies: e.target.value})} />
-                </div>
-                <textarea placeholder="Description" rows="3" value={newProject.description} onChange={e => setNewProject({...newProject, description: e.target.value})} required />
-                <div className="admin-form-row">
-                  <input placeholder="GitHub URL" value={newProject.githubUrl} onChange={e => setNewProject({...newProject, githubUrl: e.target.value})} />
-                  <input placeholder="Live URL" value={newProject.liveUrl} onChange={e => setNewProject({...newProject, liveUrl: e.target.value})} />
-                </div>
-                <div className="admin-form-row">
-                  <input type="number" placeholder="Priority (0 = first)" min="0" value={newProject.order} onChange={e => setNewProject({...newProject, order: Number(e.target.value)})} />
-                </div>
-                <div className="admin-form-actions">
-                  <button type="submit" className="btn btn-primary">Add Project</button>
-                  {projectMsg && <span className="admin-msg">{projectMsg}</span>}
-                </div>
-              </form>
-            </div>
-
-            <div className="admin-card">
-              <h3>All Projects ({projects.length})</h3>
+              <h3>GitHub Repos ({projects.length})</h3>
+              {projectMsg && <span className="admin-msg">{projectMsg}</span>}
               <div className="admin-projects-list">
                 {projects.map(p => (
-                  <div key={p._id} className="admin-project-item">
+                  <div key={p._id} className="admin-project-item" style={{ opacity: p.hidden ? 0.5 : 1 }}>
                     <div>
                       <p className="admin-project-title">{p.title}</p>
                       <p className="admin-project-tech">{p.technologies?.join(', ')}</p>
+                      {p.description && <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: 4 }}>{p.description}</p>}
                     </div>
                     <div className="admin-item-actions">
-                      <input type="number" className="admin-order-input" min="0" value={p.order || 0}
-                        onChange={e => updateProjectOrder(p._id, Number(e.target.value))} title="Priority" />
-                      <button className="admin-delete-btn" onClick={() => deleteProject(p._id)}>
-                        <i className="fa fa-trash" />
+                      <a href={p.githubUrl} target="_blank" rel="noreferrer" className="admin-view-site" style={{ marginRight: 8 }}>
+                        <i className="fab fa-github" />
+                      </a>
+                      <button className={`btn ${p.hidden ? 'btn-primary' : 'btn-secondary'}`}
+                        onClick={() => toggleProjectHidden(p._id, p.hidden)}
+                        style={{ fontSize: '0.7rem', padding: '0.3rem 0.7rem' }}>
+                        {p.hidden ? <><i className="fa fa-eye" /> Show</> : <><i className="fa fa-eye-slash" /> Hide</>}
                       </button>
                     </div>
                   </div>
                 ))}
-                {projects.length === 0 && <p className="admin-empty">No projects yet.</p>}
+                {projects.length === 0 && <p className="admin-empty">No repos found.</p>}
               </div>
             </div>
           </div>
