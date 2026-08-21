@@ -9,10 +9,10 @@
 }
 
 [data-theme='light'] {
-  --bg: #f5e6c8; --bg-alt: #efe0c0; --bg-card: #e8d6b0;
+  --bg: #c9a84c; --bg-alt: #b89a42; --bg-card: #d4b85a;
   --accent: #800020; --accent-light: #a00028; --accent-vivid: #900024;
-  --text: #1a1010; --text-muted: #6b5c55;
-  --border: #d4c0a0; --border-light: #c8b490;
+  --text: #1a1010; --text-muted: #4a3a20;
+  --border: #a88830; --border-light: #987828;
 }
 
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
