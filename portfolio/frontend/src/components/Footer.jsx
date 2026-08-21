@@ -1,9 +1,20 @@
+import { useEffect } from 'react'
 import { useProfile } from '../context/ProfileContext'
+import api from '../api'
 import './Footer.css'
 
 function Footer() {
   const { profile } = useProfile()
   const year = new Date().getFullYear()
+
+  useEffect(() => {
+    if (!sessionStorage.getItem('viewed')) {
+      const visitorId = sessionStorage.getItem('visitorId') || crypto.randomUUID()
+      sessionStorage.setItem('visitorId', visitorId)
+      sessionStorage.setItem('viewed', 'true')
+      api.post('/api/views', { visitorId }).catch(() => {})
+    }
+  }, [])
 
   return (
     <footer className="footer">
