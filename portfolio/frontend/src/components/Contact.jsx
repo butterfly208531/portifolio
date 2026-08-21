@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 import useReveal from '../hooks/useReveal'
 import emailjs from '@emailjs/browser'
+import api from '../api'
 import './Contact.css'
 
 const SERVICE_ID = 'service_mxbrabw'
@@ -21,6 +22,7 @@ function Contact() {
     e.preventDefault()
     setStatus('sending')
     try {
+      api.post('/api/contact', form).catch(() => {})
       await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY)
       setStatus('success')
       setForm({ name: '', email: '', message: '' })
