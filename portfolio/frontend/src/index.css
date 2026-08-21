@@ -2,14 +2,14 @@
 
 :root,
 [data-theme='dark'] {
-  --bg: #141414; --bg-alt: #1c1c1c; --bg-card: #212121;
+  --bg: #0e0b0d; --bg-alt: #161214; --bg-card: #1d1819;
   --accent: #c9a84c; --accent-light: #e0c878; --accent-vivid: #d4b85a;
   --text: #f5f1ee; --text-muted: #a09890;
-  --border: #333028; --border-light: #443f38;
+  --border: #2e2428; --border-light: #3d3236;
 }
 
 [data-theme='light'] {
-  --bg: #ffffff; --bg-alt: #f7f3f0; --bg-card: #f0ece8;
+  --bg: #fdfaf8; --bg-alt: #f5f0ec; --bg-card: #efe9e3;
   --accent: #800020; --accent-light: #a00028; --accent-vivid: #900024;
   --text: #1a1010; --text-muted: #6b5c55;
   --border: #e0d8d2; --border-light: #d4c8c0;
@@ -20,6 +20,9 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body {
   font-family: 'Inter', sans-serif;
   background-color: var(--bg);
+  background-image: radial-gradient(ellipse at 20% 0%, rgba(128, 0, 32, 0.08) 0%, transparent 50%),
+                    radial-gradient(ellipse at 80% 100%, rgba(201, 168, 76, 0.06) 0%, transparent 50%);
+  background-attachment: fixed;
   color: var(--text);
   line-height: 1.7;
   font-weight: 400;
